@@ -23,17 +23,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build and Test with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: build
+    - name: Build And Test Test
+      run: ./gradlew clean bootJar
         
     - name: 테스트 결과를 PR에 코멘트로 등록합니다
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
         files: build/test-results/test/TEST-*.xml
-     
 
     - name: 테스트 실패 시, 실패한 코드 라인에 Check 코멘트를 등록합니다
       uses: mikepenz/action-junit-report@v3
