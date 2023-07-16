@@ -5,7 +5,7 @@ spring:
         registration:
           naver:
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost/login/oauth2/naver
+            redirect-uri: http://localhost/login/oauth2/code/naver
             client-secret: 3HTa82y47T
             client-id: 3TDLTXc1SiZB5JOHEydB
             client-name: naver
