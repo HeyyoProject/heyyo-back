@@ -1,5 +1,5 @@
 # Base image
-FROM adoptopenjdk:17-jdk-hotspot
+FROM eclipse-temurin:17
 
 # Set working directory
 WORKDIR /app
@@ -7,11 +7,10 @@ WORKDIR /app
 # Copy the JAR file built from your Spring Boot application
 COPY ./build/libs/heyyo-0.0.1-SNAPSHOT.jar app.jar
 
+# Install MySQL client
+
 # Environment variables
 ENV SPRING_PROFILES_ACTIVE=prod
-ENV SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/heyyo
-ENV SPRING_DATASOURCE_USERNAME=heyyo
-ENV SPRING_DATASOURCE_PASSWORD=password
 
 # Expose port if necessary
 EXPOSE 8080
