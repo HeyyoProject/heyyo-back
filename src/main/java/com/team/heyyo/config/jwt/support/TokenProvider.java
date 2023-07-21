@@ -30,8 +30,9 @@ public class TokenProvider {
 
     public boolean validToken(String token) {
         try {
-            getClaims(token);
-            return true;
+            Claims claims = getClaims(token); //exception 이 터질 수 있어서 분리
+
+            return isTokenExpired(claims);
         } catch (Exception e) {
             return false;
         }
@@ -74,4 +75,9 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    private boolean isTokenExpired(Claims claims) {
+        return !claims.getExpiration().before(new Date());
+    }
+
 }
