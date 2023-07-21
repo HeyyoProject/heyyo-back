@@ -1,5 +1,6 @@
 package com.team.heyyo.config.jwt.service;
 
+import com.team.heyyo.config.jwt.constant.JwtTokenDuration;
 import com.team.heyyo.config.jwt.dto.AccessTokenRequest;
 import com.team.heyyo.config.jwt.dto.AccessTokenResponse;
 import com.team.heyyo.config.jwt.support.TokenProvider;
@@ -8,7 +9,7 @@ import com.team.heyyo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import static com.team.heyyo.config.jwt.constant.JwtTokenDuration.*;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +19,6 @@ public class TokenService {
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
 
-    private final Duration REFRESH_TOKEN_EXPIRED_TWO_HOURS = Duration.ofHours(2);
 
     /**
      * refreshToken으로 토큰이 유효한지 검사
@@ -36,7 +36,7 @@ public class TokenService {
         Long userId = refreshTokenService.findByRefreshToken(request.refreshToken()).getUserId();
         User user = userService.findById(userId);
 
-        String newAccessToken = tokenProvider.generateToken(user, REFRESH_TOKEN_EXPIRED_TWO_HOURS);
+        String newAccessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_EXPIRED.getDuration());
         return new AccessTokenResponse(newAccessToken);
     }
 }
