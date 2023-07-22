@@ -1,6 +1,7 @@
-package com.team.heyyo.config.jwt.support;
+package com.team.heyyo.auth.jwt.support;
 
-import com.team.heyyo.config.jwt.constant.JwtProperties;
+import com.team.heyyo.auth.jwt.constant.JwtProperties;
+import com.team.heyyo.user.constant.UserRole;
 import com.team.heyyo.user.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
@@ -16,6 +17,8 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+
+import static com.team.heyyo.user.constant.UserRole.USER;
 
 @RequiredArgsConstructor
 @Service
@@ -43,7 +46,7 @@ public class TokenProvider {
     public Authentication getAuthentication(String token) {
 
         Claims claims = getClaims(token);
-        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(USER.getKey()));
 
         return new UsernamePasswordAuthenticationToken(
                 new org.springframework.security.core.userdetails.User(claims.getSubject(), "", authorities),
