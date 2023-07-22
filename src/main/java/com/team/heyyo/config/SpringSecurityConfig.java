@@ -1,6 +1,7 @@
 package com.team.heyyo.config;
 
 import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
+import com.team.heyyo.auth.jwt.service.RefreshTokenService;
 import com.team.heyyo.auth.jwt.support.TokenAuthenticationFilter;
 import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.auth.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
@@ -31,6 +32,7 @@ public class SpringSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserService userService;
+    private final RefreshTokenService refreshTokenService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -90,7 +92,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter(tokenProvider);
+        return new TokenAuthenticationFilter(tokenProvider, refreshTokenService, userService);
     }
 
     @Bean
