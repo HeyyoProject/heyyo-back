@@ -1,6 +1,6 @@
-package com.team.heyyo.config.jwt.repository;
+package com.team.heyyo.auth.jwt.repository;
 
-import com.team.heyyo.config.jwt.domain.RefreshToken;
+import com.team.heyyo.auth.jwt.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

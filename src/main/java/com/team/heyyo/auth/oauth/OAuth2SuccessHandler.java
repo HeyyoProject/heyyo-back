@@ -1,8 +1,8 @@
-package com.team.heyyo.config.oauth;
+package com.team.heyyo.auth.oauth;
 
-import com.team.heyyo.config.jwt.domain.RefreshToken;
-import com.team.heyyo.config.jwt.repository.RefreshTokenRepository;
-import com.team.heyyo.config.jwt.support.TokenProvider;
+import com.team.heyyo.auth.jwt.support.TokenProvider;
+import com.team.heyyo.auth.jwt.domain.RefreshToken;
+import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.service.UserService;
 import com.team.heyyo.util.CookieUtil;
@@ -18,8 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
-import static com.team.heyyo.config.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
-import static com.team.heyyo.config.jwt.constant.JwtTokenDuration.REFRESH_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.REFRESH_TOKEN_EXPIRED;
 
 @RequiredArgsConstructor
 @Component

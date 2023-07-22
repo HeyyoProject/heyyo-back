@@ -1,11 +1,11 @@
-package com.team.heyyo.config.jwt.controller;
+package com.team.heyyo.auth.jwt.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team.heyyo.config.jwt.JwtFactory;
-import com.team.heyyo.config.jwt.constant.JwtProperties;
-import com.team.heyyo.config.jwt.domain.RefreshToken;
-import com.team.heyyo.config.jwt.dto.AccessTokenRequest;
-import com.team.heyyo.config.jwt.repository.RefreshTokenRepository;
+import com.team.heyyo.auth.jwt.JwtFactory;
+import com.team.heyyo.auth.jwt.constant.JwtProperties;
+import com.team.heyyo.auth.jwt.domain.RefreshToken;
+import com.team.heyyo.auth.jwt.dto.AccessTokenRequest;
+import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,11 +1,9 @@
-package com.team.heyyo.config.jwt.support;
+package com.team.heyyo.auth.jwt.support;
 
-import com.team.heyyo.config.jwt.JwtFactory;
-import com.team.heyyo.config.jwt.constant.JwtProperties;
+import com.team.heyyo.auth.jwt.JwtFactory;
+import com.team.heyyo.auth.jwt.constant.JwtProperties;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
-import io.jsonwebtoken.Jwts;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import java.util.Date;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TokenProviderTest {

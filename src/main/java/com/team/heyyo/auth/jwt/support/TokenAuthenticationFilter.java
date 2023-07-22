@@ -1,4 +1,4 @@
-package com.team.heyyo.config.jwt.support;
+package com.team.heyyo.auth.jwt.support;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

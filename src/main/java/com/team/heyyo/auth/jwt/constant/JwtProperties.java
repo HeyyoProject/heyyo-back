@@ -1,4 +1,4 @@
-package com.team.heyyo.config.jwt.constant;
+package com.team.heyyo.auth.jwt.constant;
 
 import lombok.Getter;
 import lombok.Setter;

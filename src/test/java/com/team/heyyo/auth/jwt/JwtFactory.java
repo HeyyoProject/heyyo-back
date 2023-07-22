@@ -1,6 +1,6 @@
-package com.team.heyyo.config.jwt;
+package com.team.heyyo.auth.jwt;
 
-import com.team.heyyo.config.jwt.constant.JwtProperties;
+import com.team.heyyo.auth.jwt.constant.JwtProperties;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,11 +1,11 @@
 package com.team.heyyo.config;
 
-import com.team.heyyo.config.jwt.repository.RefreshTokenRepository;
-import com.team.heyyo.config.jwt.support.TokenAuthenticationFilter;
-import com.team.heyyo.config.jwt.support.TokenProvider;
-import com.team.heyyo.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import com.team.heyyo.config.oauth.OAuth2SuccessHandler;
-import com.team.heyyo.config.oauth.Oauth2UserCustomService;
+import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
+import com.team.heyyo.auth.jwt.support.TokenAuthenticationFilter;
+import com.team.heyyo.auth.jwt.support.TokenProvider;
+import com.team.heyyo.auth.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import com.team.heyyo.auth.oauth.OAuth2SuccessHandler;
+import com.team.heyyo.auth.oauth.Oauth2UserCustomService;
 import com.team.heyyo.user.repository.UserRepository;
 import com.team.heyyo.user.service.UserDetailService;
 import com.team.heyyo.user.service.UserService;

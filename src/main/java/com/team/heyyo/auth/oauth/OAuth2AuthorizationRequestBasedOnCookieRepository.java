@@ -1,4 +1,4 @@
-package com.team.heyyo.config.oauth;
+package com.team.heyyo.auth.oauth;
 
 import com.team.heyyo.util.CookieUtil;
 import jakarta.servlet.http.Cookie;

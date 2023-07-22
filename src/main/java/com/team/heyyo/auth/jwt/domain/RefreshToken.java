@@ -1,4 +1,4 @@
-package com.team.heyyo.config.jwt.domain;
+package com.team.heyyo.auth.jwt.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

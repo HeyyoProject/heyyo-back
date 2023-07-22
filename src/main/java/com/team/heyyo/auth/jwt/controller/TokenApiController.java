@@ -1,8 +1,8 @@
-package com.team.heyyo.config.jwt.controller;
+package com.team.heyyo.auth.jwt.controller;
 
-import com.team.heyyo.config.jwt.dto.AccessTokenRequest;
-import com.team.heyyo.config.jwt.dto.AccessTokenResponse;
-import com.team.heyyo.config.jwt.service.TokenService;
+import com.team.heyyo.auth.jwt.dto.AccessTokenRequest;
+import com.team.heyyo.auth.jwt.dto.AccessTokenResponse;
+import com.team.heyyo.auth.jwt.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.team.heyyo.config.jwt.dto;
+package com.team.heyyo.auth.jwt.dto;
 
 public record AccessTokenRequest(
         String refreshToken
