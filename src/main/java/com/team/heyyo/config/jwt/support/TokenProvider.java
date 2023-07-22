@@ -30,9 +30,11 @@ public class TokenProvider {
 
     public boolean validToken(String token) {
         try {
-            Claims claims = getClaims(token); //exception 이 터질 수 있어서 분리
+            Jwts.parser()
+                    .setSigningKey(jwtProperties.getSecretKey())
+                    .parseClaimsJws(token);
 
-            return isTokenExpired(claims);
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -74,10 +76,6 @@ public class TokenProvider {
                 .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody();
-    }
-
-    private boolean isTokenExpired(Claims claims) {
-        return !claims.getExpiration().before(new Date());
     }
 
 }
