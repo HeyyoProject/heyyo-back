@@ -1,5 +1,6 @@
 package com.team.heyyo.user.service;
 
+import com.team.heyyo.auth.exception.LoginFailedException;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException((email)));
+                .orElseThrow(LoginFailedException::new);
     }
+
 }

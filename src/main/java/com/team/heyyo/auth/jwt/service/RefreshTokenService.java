@@ -1,7 +1,8 @@
-package com.team.heyyo.config.jwt.service;
+package com.team.heyyo.auth.jwt.service;
 
-import com.team.heyyo.config.jwt.domain.RefreshToken;
-import com.team.heyyo.config.jwt.repository.RefreshTokenRepository;
+import com.team.heyyo.auth.jwt.domain.RefreshToken;
+import com.team.heyyo.auth.jwt.exception.TokenForgeryException;
+import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ public class RefreshTokenService {
 
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected token"));
+                .orElseThrow(() -> new TokenForgeryException("변조되거나, 알 수 없는 refreshToken 입니다."));
     }
+
 }

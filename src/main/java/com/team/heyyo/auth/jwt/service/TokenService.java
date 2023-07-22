@@ -1,15 +1,15 @@
-package com.team.heyyo.config.jwt.service;
+package com.team.heyyo.auth.jwt.service;
 
-import com.team.heyyo.config.jwt.constant.JwtTokenDuration;
-import com.team.heyyo.config.jwt.dto.AccessTokenRequest;
-import com.team.heyyo.config.jwt.dto.AccessTokenResponse;
-import com.team.heyyo.config.jwt.support.TokenProvider;
+import com.team.heyyo.auth.jwt.dto.AccessTokenResponse;
+import com.team.heyyo.auth.jwt.exception.TokenForgeryException;
+import com.team.heyyo.auth.jwt.support.TokenProvider;
+import com.team.heyyo.auth.jwt.dto.AccessTokenRequest;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.team.heyyo.config.jwt.constant.JwtTokenDuration.*;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +30,7 @@ public class TokenService {
     public AccessTokenResponse createNewAccessToken(AccessTokenRequest request) {
 //        토큰 유효성 검사에 실패하면 예외 발생
         if (!tokenProvider.validToken(request.refreshToken())) {
-            throw new IllegalArgumentException("Unexpected Token");
+            throw new TokenForgeryException("변조되거나, 만료된 accessToken 입니다.");
         }
 
         Long userId = refreshTokenService.findByRefreshToken(request.refreshToken()).getUserId();
