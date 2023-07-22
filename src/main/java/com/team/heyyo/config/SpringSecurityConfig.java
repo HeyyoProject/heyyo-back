@@ -1,21 +1,21 @@
 package com.team.heyyo.config;
 
-import com.team.heyyo.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import com.team.heyyo.config.oauth.OAuth2SuccessHandler;
-import com.team.heyyo.config.oauth.Oauth2UserCustomService;
-import com.team.heyyo.user.service.UserService;
 import com.team.heyyo.config.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.config.jwt.support.TokenAuthenticationFilter;
 import com.team.heyyo.config.jwt.support.TokenProvider;
+import com.team.heyyo.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import com.team.heyyo.config.oauth.OAuth2SuccessHandler;
+import com.team.heyyo.config.oauth.Oauth2UserCustomService;
+import com.team.heyyo.user.repository.UserRepository;
+import com.team.heyyo.user.service.UserDetailService;
+import com.team.heyyo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,6 +25,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @RequiredArgsConstructor
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig {
     private final Oauth2UserCustomService oauth2UserCustomService;
     private final TokenProvider tokenProvider;
@@ -37,7 +38,6 @@ public class SpringSecurityConfig {
             .csrf().disable()
             .cors().disable()
             .httpBasic().disable()
-            .formLogin().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             // H2 콘솔 사용을 위한 설정
@@ -45,10 +45,10 @@ public class SpringSecurityConfig {
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-//      토큰 재발급 URL 은 열어두고, 나머지 API 는 인증 필요
+//      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
                 .requestMatchers(toH2Console()).permitAll()
-                .requestMatchers("/api/token").permitAll()
+                .requestMatchers("/api/tokens", "/api/login").permitAll()
                 .anyRequest().authenticated();
 
         http.oauth2Login()
@@ -59,15 +59,23 @@ public class SpringSecurityConfig {
                 .userInfoEndpoint()
                 .userService(oauth2UserCustomService);
 
-//        로그아웃은 클라이언트 쪽에서 쿠키와 header 지우면 되서 따로 구현 안했습니다
+        http.logout()
+                .logoutUrl("/api/logout")
+                .clearAuthentication(true)
+                .deleteCookies(OAuth2SuccessHandler.REFRESH_TOKEN_COOKIE_NAME);
 
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(
                         new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-                        new AntPathRequestMatcher("/api/**")
+                        new AntPathRequestMatcher("/**")  //인증되지 않는 사용자가 접근시 HTTP 401 리턴
                 );
 
         return http.build();
+    }
+
+    @Bean
+    UserDetailService customUserDetailsService(UserRepository userRepository) {
+        return new UserDetailService(userRepository);
     }
 
     @Bean
@@ -89,13 +97,5 @@ public class SpringSecurityConfig {
     public OAuth2AuthorizationRequestBasedOnCookieRepository oAuth2AuthorizationRequestBasedOnCookieRepository() {
         return new OAuth2AuthorizationRequestBasedOnCookieRepository();
     }
-
-    /* 비밀번호 암호화 */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-
 
 }
