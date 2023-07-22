@@ -19,10 +19,8 @@ public class TokenApiController {
     public ResponseEntity<AccessTokenResponse> createNewAccessToken(
             @RequestBody AccessTokenRequest request
     ) {
-        AccessTokenResponse newAccessToken = tokenService.createNewAccessToken(request);
-
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(newAccessToken);
+                .body(tokenService.createNewAccessToken(request));
     }
 
 }
