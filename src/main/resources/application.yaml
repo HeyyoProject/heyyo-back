@@ -8,3 +8,11 @@ spring:
     import: application-oauth.yaml
   profiles:
     default: local
+
+
+jwt:
+  issuer: wan2daaa@gmail.com
+  secret_key: heyyo-backend
+
+frontend:
+  url: http://localhost:3000
