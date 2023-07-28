@@ -17,7 +17,10 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentKey;
 
-    private long worryCommunityId;
+    private long supportCommunityKey;
+
+    @Column(name = "writer_user_key")
+    private long userKey;
 
     @Lob
     private String content;

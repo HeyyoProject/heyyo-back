@@ -17,10 +17,13 @@ public class Comment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentKey;
 
-    private long worryCommunityId;
+    private long worryCommunityKey;
 
     @Lob
     private String content;
+
+    @Column(name = "writer_user_key")
+    private long userKey;
 
     @CreationTimestamp
     private Date writedDate;
