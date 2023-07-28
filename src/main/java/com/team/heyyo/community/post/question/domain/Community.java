@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "question_community_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Entity(name = "question_community")
 public class Community {
 
     @Id

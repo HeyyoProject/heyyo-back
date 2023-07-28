@@ -30,7 +30,7 @@ public class UserService {
                         .password(passwordEncoder.encode(password))
                         .build()
                 )
-                .getId();
+                .getUserKey();
     }
 
     public User findById(Long userId) {

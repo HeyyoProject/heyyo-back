@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "worry_community_tag_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Entity(name = "worry_community_tag")
 public class CommunityTag {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

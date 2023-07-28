@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "question_community_comment_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Entity(name = "question_comment")
 public class Comment {
 
     @Id
