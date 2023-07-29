@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class Streaming {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long streamingId;
+    private Long streamingId;
 
-    private long userId;
+    private Long userId;
 
-    private long groupStudyId;
+    private Long groupStudyId;
 
 }

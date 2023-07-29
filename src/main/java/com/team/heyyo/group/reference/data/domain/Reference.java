@@ -15,12 +15,12 @@ import java.util.Date;
 public class Reference {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long groupStudyReferenceId;
+    private Long groupStudyReferenceId;
 
-    private long groupStudyId;
+    private Long groupStudyId;
 
     @Column(name = "writer_user_key")
-    private long userId;
+    private Long userId;
 
     private String title;
 

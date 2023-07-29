@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 public class Chatting {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long chattingId;
+    private Long chattingId;
 
-    private long toUserId;
+    private Long toUserId;
 
-    private long fromUserId;
+    private Long fromUserId;
 
     private String session;
 

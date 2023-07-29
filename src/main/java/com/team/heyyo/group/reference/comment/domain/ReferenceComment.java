@@ -14,9 +14,9 @@ import java.util.Date;
 @Entity
 public class ReferenceComment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long referenceCommentId;
+    private Long referenceCommentId;
 
-    private long userId;
+    private Long userId;
 
     @CreationTimestamp
     private Date writedDate;

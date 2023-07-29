@@ -15,12 +15,12 @@ import java.util.Date;
 public class SupportComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long supportCommentId;
+    private Long supportCommentId;
 
-    private long supportCommunityId;
+    private Long supportCommunityId;
 
     @Column(name = "writer_user_key")
-    private long userId;
+    private Long userId;
 
     @Lob
     private String content;

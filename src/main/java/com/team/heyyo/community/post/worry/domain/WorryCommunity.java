@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 public class WorryCommunity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long worryCommunityId;
+    private Long worryCommunityId;
 
     private String title;
 
     @Lob
     private String content;
 
-    private long userId;
+    private Long userId;
 
-    private boolean isSolved;
+    private Boolean isSolved;
 
 }

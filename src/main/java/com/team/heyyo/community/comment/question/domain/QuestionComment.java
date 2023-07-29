@@ -16,12 +16,12 @@ public class QuestionComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long questionCommentId;
+    private Long questionCommentId;
 
-    private long questionCommunityId;
+    private Long questionCommunityId;
 
     @Column(name = "writer_user_key")
-    private long userId;
+    private Long userId;
 
     @Lob
     private String content;

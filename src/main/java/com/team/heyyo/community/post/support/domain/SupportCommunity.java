@@ -13,13 +13,13 @@ public class SupportCommunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long supportCommunityId;
+    private Long supportCommunityId;
 
     private String title;
 
     @Lob
     private String content;
 
-    private long userId;
+    private Long userId;
 
 }

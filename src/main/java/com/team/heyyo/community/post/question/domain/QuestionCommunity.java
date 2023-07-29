@@ -13,15 +13,15 @@ public class QuestionCommunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long questionCommunityId;
+    private Long questionCommunityId;
 
     private String title;
 
     @Lob
     private String content;
 
-    private long userId;
+    private Long userId;
 
-    private boolean isSolved;
+    private Boolean isSolved;
 
 }

@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class Friend {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long friendId;
+    private Long friendId;
 
-    private long toUserId;
+    private Long toUserId;
 
-    private long fromUserId;
+    private Long fromUserId;
 
 }

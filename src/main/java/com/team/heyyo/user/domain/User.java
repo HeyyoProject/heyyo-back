@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     private String nickname;
 
-    private boolean isMarketingAgree;
+    private Boolean isMarketingAgree;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
