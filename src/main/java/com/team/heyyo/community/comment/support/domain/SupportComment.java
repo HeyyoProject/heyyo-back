@@ -12,10 +12,10 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity(name = "support_comment")
-public class Comment {
+public class SupportComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentId;
+    private long supportCommentId;
 
     private long supportCommunityId;
 

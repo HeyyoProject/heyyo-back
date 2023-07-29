@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity(name = "support_community")
-public class Community {
+public class SupportCommunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long communityId;
+    private long supportCommunityId;
 
     private String title;
 

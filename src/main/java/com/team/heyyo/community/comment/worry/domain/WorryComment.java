@@ -1,4 +1,4 @@
-package com.team.heyyo.group.reference.comment.domain;
+package com.team.heyyo.community.comment.worry.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,19 +8,23 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
-@Table(name = "reference_comment_tb")
+@Table(name = "worry_community_comment_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
-public class Comment {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long referenceCommentId;
+@Entity(name = "worry_comment")
+public class WorryComment {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long worryCommentId;
+
+    private long worryCommunityId;
+
+    @Lob
+    private String content;
+
+    @Column(name = "writer_user_key")
     private long userId;
 
     @CreationTimestamp
     private Date writedDate;
-
-    @Lob
-    private String content;
 }

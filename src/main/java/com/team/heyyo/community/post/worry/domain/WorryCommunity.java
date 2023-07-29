@@ -5,16 +5,22 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "worry_community_tag_tb")
+@Table(name = "worry_community_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity(name = "worry_community_tag")
-public class CommunityTag {
+@Entity(name = "worry_community")
+public class WorryCommunity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long communityTagId;
-
     private long worryCommunityId;
 
-    private String tagData;
+    private String title;
+
+    @Lob
+    private String content;
+
+    private long userId;
+
+    private boolean isSolved;
+
 }
