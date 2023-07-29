@@ -19,7 +19,7 @@ public class SupportComment {
 
     private Long supportCommunityId;
 
-    @Column(name = "writer_user_key")
+    @Column(name = "writer_user_id")
     private Long userId;
 
     @Lob

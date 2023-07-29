@@ -14,7 +14,7 @@ public class GroupStudy {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupStudyId;
 
-    @Column(name = "owner_user_key")
+    @Column(name = "owner_user_id")
     private Long userId;
 
     private String title;

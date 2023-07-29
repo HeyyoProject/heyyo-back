@@ -20,7 +20,7 @@ public class QuestionComment {
 
     private Long questionCommunityId;
 
-    @Column(name = "writer_user_key")
+    @Column(name = "writer_user_id")
     private Long userId;
 
     @Lob

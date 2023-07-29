@@ -22,7 +22,7 @@ public class WorryComment {
     @Lob
     private String content;
 
-    @Column(name = "writer_user_key")
+    @Column(name = "writer_user_id")
     private Long userId;
 
     @CreationTimestamp

@@ -19,7 +19,7 @@ public class Reference {
 
     private Long groupStudyId;
 
-    @Column(name = "writer_user_key")
+    @Column(name = "writer_user_id")
     private Long userId;
 
     private String title;
