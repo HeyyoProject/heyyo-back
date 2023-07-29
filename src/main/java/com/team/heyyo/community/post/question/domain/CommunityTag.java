@@ -13,9 +13,9 @@ public class CommunityTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long communityTagKey;
+    private long communityTagId;
 
-    private long questionCommunityKey;
+    private long questionCommunityId;
 
     private String tagData;
 }

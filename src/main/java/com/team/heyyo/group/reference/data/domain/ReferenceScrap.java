@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class ReferenceScrap {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long referenceScrapKey;
+    private long referenceScrapId;
 
-    private long userKey;
+    private long userId;
 
-    private long referenceKey;
+    private long referenceId;
 
 }

@@ -15,15 +15,15 @@ import java.util.Date;
 public class Comment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentKey;
+    private long commentId;
 
-    private long worryCommunityKey;
+    private long worryCommunityId;
 
     @Lob
     private String content;
 
     @Column(name = "writer_user_key")
-    private long userKey;
+    private long userId;
 
     @CreationTimestamp
     private Date writedDate;

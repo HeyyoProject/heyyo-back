@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 public class Community {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long communityKey;
+    private long communityId;
 
     private String title;
 
     @Lob
     private String content;
 
-    private long userKey;
+    private long userId;
 
     private boolean isSolved;
 

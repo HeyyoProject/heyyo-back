@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class GroupStudy {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long groupStudyKey;
+    private long groupStudyId;
 
     @Column(name = "owner_user_key")
-    private long userKey;
+    private long userId;
 
     private String title;
 

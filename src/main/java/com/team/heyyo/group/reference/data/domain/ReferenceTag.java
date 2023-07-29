@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReferenceTag {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long referenceTagKey;
+    private long referenceTagId;
 
     private String tagData;
 }

@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class GroupStudyTag {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long groupStudyTagKey;
+    private long groupStudyTagId;
 
-    private long groupStudyKey;
+    private long groupStudyId;
 
     private String tagData;
 }

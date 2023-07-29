@@ -15,11 +15,11 @@ import java.util.Date;
 public class TodoList {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long todoListKey;
+    private long todoListId;
 
     private String data;
 
-    private long userKey;
+    private long userId;
 
     @UpdateTimestamp
     private Date completedDate;

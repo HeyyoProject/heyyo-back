@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class CommunityTag {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long communityTagKey;
+    private long communityTagId;
 
-    private long worryCommunityKey;
+    private long worryCommunityId;
 
     private String tagData;
 }
