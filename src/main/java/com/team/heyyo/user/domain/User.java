@@ -1,5 +1,6 @@
 package com.team.heyyo.user.domain;
 
+import com.team.heyyo.user.constant.Mbti;
 import com.team.heyyo.user.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -11,9 +12,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "user_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -22,14 +24,25 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private Long id;
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String name;
+
     private String password;
 
-    private String name;
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
+    private Mbti mbtiType;
+
+    private Date birth;
+
+    private String nickname;
+
+    private Boolean isMarketingAgree;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;

@@ -63,7 +63,7 @@ class TokenProviderTest {
         //then
         Long userId = tokenProvider.getUserId(token);
 
-        assertThat(userId).isEqualTo(testUser.getId());
+        assertThat(userId).isEqualTo(testUser.getUserId());
     }
 
     @DisplayName("validToken(): 만료된 토큰인 때에 유효성 검증에 실패한다.")
