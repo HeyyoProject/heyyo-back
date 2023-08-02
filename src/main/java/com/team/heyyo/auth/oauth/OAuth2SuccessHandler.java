@@ -4,7 +4,7 @@ import com.team.heyyo.auth.jwt.domain.RefreshToken;
 import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.user.domain.User;
-import com.team.heyyo.user.service.UserLoginService;
+import com.team.heyyo.user.service.UserService;
 import com.team.heyyo.util.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-    private final UserLoginService userService;
+    private final UserService userService;
 
     @Value("${frontend.url}")
     private String CLIENT_URL;

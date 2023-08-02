@@ -9,7 +9,7 @@ import com.team.heyyo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenConstant.ACCESS_TOKEN;
 
 @RequiredArgsConstructor
 @Service
@@ -36,7 +36,7 @@ public class TokenService {
         Long userId = refreshTokenService.findByRefreshToken(request.refreshToken()).getUserId();
         User user = userService.findById(userId);
 
-        String newAccessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_EXPIRED.getDuration());
+        String newAccessToken = tokenProvider.generateToken(user, ACCESS_TOKEN.getDuration());
         return new AccessTokenResponse(newAccessToken);
     }
 }
