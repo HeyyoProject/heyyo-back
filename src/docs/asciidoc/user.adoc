@@ -1,0 +1,41 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+link:main.html[메인 문서]
+
+== User Api
+
+=== 유저 회원가입
+
+==== Request
+
+include::{snippets}/user/register/http-request.adoc[]
+include::{snippets}/user/register/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/user/register/http-response.adoc[]
+include::{snippets}/user/register/response-fields.adoc[]
+
+
+=== 유저 로그인
+
+==== Request
+
+include::{snippets}/user/login/http-request.adoc[]
+include::{snippets}/user/login/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/user/login/http-response.adoc[]
+
+===== Cookie
+include::{snippets}/user/login/response-cookies.adoc[]
+
+===== Header
+include::{snippets}/user/login/response-headers.adoc[]
+
