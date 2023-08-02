@@ -55,10 +55,6 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 tasks.named('test') {
     useJUnitPlatform()
 }
@@ -68,6 +64,7 @@ ext {
 }
 
 test {
+    useJUnitPlatform()
     outputs.dir snippetsDir
 }
 
