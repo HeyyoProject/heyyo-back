@@ -7,11 +7,12 @@ import java.time.Duration;
 
 @Getter
 @RequiredArgsConstructor
-public enum JwtTokenDuration {
-    ACCESS_TOKEN_EXPIRED(Duration.ofMinutes(30)),
-    REFRESH_TOKEN_EXPIRED(Duration.ofDays(14)),
+public enum JwtTokenConstant {
+    ACCESS_TOKEN(Duration.ofMinutes(30), "Authorization"),
+    REFRESH_TOKEN(Duration.ofDays(14), "refresh_token"),
     ;
 
     private final Duration duration;
+    private final String name;
 
 }
