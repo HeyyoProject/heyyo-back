@@ -15,7 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenConstant.ACCESS_TOKEN;
 
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
@@ -36,18 +36,20 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             setAuthenticationInSecurityContextHolder(token);
         } else {
             Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (REFRESH_TOKEN_COOKIE_NAME.equals(cookie.getName())) {
-                    String refreshToken = cookie.getValue();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (REFRESH_TOKEN_COOKIE_NAME.equals(cookie.getName())) {
+                        String refreshToken = cookie.getValue();
 
-                    if (tokenProvider.validToken(refreshToken)) {
-                        String accessToken = generateNewAccessToken(response, refreshToken);
-                        setAuthenticationInSecurityContextHolder(accessToken);
+                        if (tokenProvider.validToken(refreshToken)) {
+                            String accessToken = generateNewAccessToken(response, refreshToken);
+                            setAuthenticationInSecurityContextHolder(accessToken);
+                        }
+                        break;
                     }
-                    break;
                 }
             }
-        } 
+        }
         filterChain.doFilter(request, response);
     }
 
@@ -64,7 +66,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private String generateNewAccessToken(HttpServletResponse response, String refreshToken) {
         User user = findUserWithRefreshToken(refreshToken);
-        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_EXPIRED.getDuration());
+        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN.getDuration());
         response.setHeader(HEADER_AUTHORIZATION, TOKEN_PREFIX + accessToken);
         return accessToken;
     }
