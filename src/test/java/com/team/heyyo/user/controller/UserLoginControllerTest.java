@@ -170,7 +170,7 @@ class UserLoginControllerTest {
     ).andDo(print());
     //then
     resultActions.andExpect(status().isBadRequest())
-        .andDo(document("user/login",
+        .andDo(document("user/login/wrongPassword",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 requestFields(

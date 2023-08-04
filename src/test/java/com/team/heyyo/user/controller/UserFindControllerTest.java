@@ -124,7 +124,7 @@ class UserFindControllerTest {
 
     //then
     resultActions.andExpect(status().isNotFound())
-        .andDo(document("user/findPassword/success",
+        .andDo(document("user/findPassword/userNotFound",
             preprocessRequest(prettyPrint()),
             preprocessResponse(prettyPrint()),
             pathParameters(
