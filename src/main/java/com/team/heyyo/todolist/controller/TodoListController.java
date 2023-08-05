@@ -2,10 +2,10 @@ package com.team.heyyo.todolist.controller;
 
 import com.team.heyyo.common.AccessToken;
 import com.team.heyyo.todolist.dto.TodoListDateRequest;
-import com.team.heyyo.todolist.dto.TodoListRequest;
+import com.team.heyyo.todolist.dto.TodoListDataRequest;
 import com.team.heyyo.todolist.service.TodoListService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +17,8 @@ public class TodoListController {
     private final TodoListService todoListService;
 
     @PostMapping
-    public ResponseEntity saveTodoList(@AccessToken String accessToken , @RequestBody TodoListRequest todoListRequest) {
-        return ResponseEntity.ok().body(todoListService.saveTodoList(accessToken , todoListRequest));
+    public ResponseEntity saveTodoList(@AccessToken String accessToken , @RequestBody TodoListDataRequest todoListDataRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoListService.saveTodoList(accessToken , todoListDataRequest));
     }
 
     @DeleteMapping("/{todoListId}")
@@ -30,8 +30,8 @@ public class TodoListController {
 
     @PatchMapping("/{todoListId}")
     public ResponseEntity updateTodoList(@AccessToken String accessToken
-            , @PathVariable long todoListId , @RequestBody TodoListRequest todoListRequest) {
-        return ResponseEntity.ok().body(todoListService.updateTodoList(accessToken , todoListId , todoListRequest));
+            , @PathVariable long todoListId , @RequestBody TodoListDataRequest todoListDataRequest) {
+        return ResponseEntity.ok().body(todoListService.updateTodoList(accessToken , todoListId , todoListDataRequest));
     }
 
     @PatchMapping("/{todoListId}/complete")

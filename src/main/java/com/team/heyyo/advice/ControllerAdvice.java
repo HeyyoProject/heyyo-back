@@ -13,12 +13,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler({MethodArgumentNotValidException.class , TodoListException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorResponse> handleMethodArgumentException(BindingResult bindingResult) {
         String errorMessage = bindingResult.getFieldErrors()
                 .get(0)
                 .getDefaultMessage();
         return ResponseEntity.badRequest().body(ErrorResponse.of(errorMessage));
+    }
+
+    @ExceptionHandler(TodoListException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequestException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e.getMessage()));
     }
 
     @ExceptionHandler(NotFoundException.class)

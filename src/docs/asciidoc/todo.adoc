@@ -1,0 +1,99 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:main.html[메인 문서]
+
+=== todoList 저장
+
+==== Request
+
+include::{snippets}/todoList/saveTodoList/http-request.adoc[]
+include::{snippets}/todoList/saveTodoList/request-headers.adoc[]
+include::{snippets}/todoList/saveTodoList/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/saveTodoList/http-response.adoc[]
+include::{snippets}/todoList/saveTodoList/response-fields.adoc[]
+
+=== todoList 수정
+
+==== Request
+
+include::{snippets}/todoList/updateTodoList/http-request.adoc[]
+include::{snippets}/todoList/updateTodoList/path-parameters.adoc[]
+include::{snippets}/todoList/updateTodoList/request-fields.adoc[]
+include::{snippets}/todoList/updateTodoList/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/updateTodoList/http-response.adoc[]
+include::{snippets}/todoList/updateTodoList/response-fields.adoc[]
+
+=== todoList 완료 ( Complete )
+
+==== Request
+
+include::{snippets}/todoList/updateTodoListComplete/http-request.adoc[]
+include::{snippets}/todoList/updateTodoListComplete/path-parameters.adoc[]
+include::{snippets}/todoList/updateTodoListComplete/request-fields.adoc[]
+include::{snippets}/todoList/updateTodoListComplete/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/updateTodoListComplete/http-response.adoc[]
+include::{snippets}/todoList/updateTodoListComplete/response-fields.adoc[]
+
+=== todoList 제거
+
+==== Request
+
+include::{snippets}/todoList/deleteTodoList/http-request.adoc[]
+include::{snippets}/todoList/deleteTodoList/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/deleteTodoList/http-response.adoc[]
+
+=== 완료한 todoList 보기
+
+==== Request
+
+include::{snippets}/todoList/findAchievedTodoListByUserId/http-request.adoc[]
+include::{snippets}/todoList/findAchievedTodoListByUserId/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/findAchievedTodoListByUserId/http-response.adoc[]
+include::{snippets}/todoList/findAchievedTodoListByUserId/response-fields.adoc[]
+
+=== 현재 진행중인 todoList 보기
+
+==== Request
+
+include::{snippets}/todoList/findTodoListInProgressByUserId/http-request.adoc[]
+include::{snippets}/todoList/findTodoListInProgressByUserId/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/findTodoListInProgressByUserId/http-response.adoc[]
+include::{snippets}/todoList/findTodoListInProgressByUserId/response-fields.adoc[]
+
+=== 특정 날짜에 완료된 todoList 보기
+
+==== Request
+
+include::{snippets}/todoList/getTodoListByDateAchieved/http-request.adoc[]
+include::{snippets}/todoList/getTodoListByDateAchieved/request-headers.adoc[]
+include::{snippets}/todoList/getTodoListByDateAchieved/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/getTodoListByDateAchieved/http-response.adoc[]
+include::{snippets}/todoList/getTodoListByDateAchieved/response-fields.adoc[]
+
