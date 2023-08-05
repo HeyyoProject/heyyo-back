@@ -1,8 +1,8 @@
 package com.team.heyyo.auth.oauth;
 
-import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.auth.jwt.domain.RefreshToken;
 import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
+import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.service.UserService;
 import com.team.heyyo.util.CookieUtil;
@@ -18,14 +18,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
-import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
-import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.REFRESH_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenConstant.ACCESS_TOKEN;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenConstant.REFRESH_TOKEN;
 
 @RequiredArgsConstructor
 @Component
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
-    public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
 
     /**
      * FIXME : REDIRECT_PATH 수정 필요
@@ -45,12 +43,12 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         User user = userService.findByEmail((String) oAuth2User.getAttributes().get("email"));
 
-        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_EXPIRED.getDuration());
-        saveRefreshToken(user.getId(), refreshToken);
+        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN.getDuration());
+        saveRefreshToken(user.getUserId() , refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
-        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_EXPIRED.getDuration());
-        response.setHeader("Authorization", "Bearer "+ accessToken);
+        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN.getDuration());
+        response.setHeader(ACCESS_TOKEN.getName(), "Bearer "+ accessToken);
 
         clearAuthenticationAttributes(request, response);
 
@@ -66,10 +64,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private void addRefreshTokenToCookie(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
-        int cookieMaxAge = (int) REFRESH_TOKEN_EXPIRED.getDuration().toSeconds();
+        int cookieMaxAge = (int) REFRESH_TOKEN.getDuration().toSeconds();
 
-        CookieUtil.deleteCookie(request, response, REFRESH_TOKEN_COOKIE_NAME);
-        CookieUtil.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, cookieMaxAge);
+        CookieUtil.deleteCookie(request, response, REFRESH_TOKEN.getName());
+        CookieUtil.addCookie(response, REFRESH_TOKEN.getName(), refreshToken, cookieMaxAge);
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {

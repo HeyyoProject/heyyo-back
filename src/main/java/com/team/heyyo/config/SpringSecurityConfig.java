@@ -1,5 +1,6 @@
 package com.team.heyyo.config;
 
+import com.team.heyyo.auth.jwt.constant.JwtTokenConstant;
 import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.auth.jwt.service.RefreshTokenService;
 import com.team.heyyo.auth.jwt.support.TokenAuthenticationFilter;
@@ -50,7 +51,7 @@ public class SpringSecurityConfig {
 //      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
                 .requestMatchers(toH2Console()).permitAll()
-                .requestMatchers("/api/tokens", "/api/login").permitAll()
+                .requestMatchers("/api/tokens", "/api/users/**").permitAll()
                 .anyRequest().authenticated();
 
         http.oauth2Login()
@@ -64,7 +65,7 @@ public class SpringSecurityConfig {
         http.logout()
                 .logoutUrl("/api/logout")
                 .clearAuthentication(true)
-                .deleteCookies(OAuth2SuccessHandler.REFRESH_TOKEN_COOKIE_NAME);
+                .deleteCookies(JwtTokenConstant.REFRESH_TOKEN.getName());
 
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(

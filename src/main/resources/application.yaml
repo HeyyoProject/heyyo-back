@@ -3,7 +3,22 @@ server:
 client:
   url: http://localhost:3000
 
+smtp:
+  from: wan2daaa@gmail.com
+
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: picapark2300@gmail.com
+    password: rgjylbuwnpqlxmss
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
   config:
     import: application-oauth.yaml
   profiles:

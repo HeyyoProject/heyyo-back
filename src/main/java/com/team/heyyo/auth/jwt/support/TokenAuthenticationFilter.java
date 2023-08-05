@@ -14,8 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import static com.team.heyyo.auth.jwt.constant.JwtTokenDuration.ACCESS_TOKEN_EXPIRED;
+import static com.team.heyyo.auth.jwt.constant.JwtTokenConstant.ACCESS_TOKEN;
 
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
@@ -35,19 +36,14 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (tokenProvider.validToken(token)) {
             setAuthenticationInSecurityContextHolder(token);
         } else {
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (REFRESH_TOKEN_COOKIE_NAME.equals(cookie.getName())) {
-                    String refreshToken = cookie.getValue();
+            Cookie refreshTokenCookie = findCookie(request, REFRESH_TOKEN_COOKIE_NAME);
 
-                    if (tokenProvider.validToken(refreshToken)) {
-                        String accessToken = generateNewAccessToken(response, refreshToken);
-                        setAuthenticationInSecurityContextHolder(accessToken);
-                    }
-                    break;
-                }
+            if (refreshTokenCookie != null && tokenProvider.validToken(refreshTokenCookie.getValue())) {
+                String accessToken = generateNewAccessToken(response, refreshTokenCookie.getValue());
+                setAuthenticationInSecurityContextHolder(accessToken);
             }
-        } 
+        }
+
         filterChain.doFilter(request, response);
     }
 
@@ -62,9 +58,20 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    private Cookie findCookie(HttpServletRequest request, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            return Arrays.stream(cookies)
+                    .filter(cookie -> cookie.getName().equals(cookieName))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return null;
+    }
+
     private String generateNewAccessToken(HttpServletResponse response, String refreshToken) {
         User user = findUserWithRefreshToken(refreshToken);
-        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_EXPIRED.getDuration());
+        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN.getDuration());
         response.setHeader(HEADER_AUTHORIZATION, TOKEN_PREFIX + accessToken);
         return accessToken;
     }
