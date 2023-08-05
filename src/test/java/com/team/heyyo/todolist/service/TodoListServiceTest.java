@@ -5,7 +5,7 @@ import com.team.heyyo.todolist.domain.TodoList;
 import com.team.heyyo.todolist.dto.TodoListDataResponse;
 import com.team.heyyo.todolist.dto.TodoListDateRequest;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
-import com.team.heyyo.todolist.dto.TodoListRequest;
+import com.team.heyyo.todolist.dto.TodoListDataRequest;
 import com.team.heyyo.todolist.repository.TodoListRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,12 +40,12 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 저장")
     void saveTodoList() {
         // given
-        TodoListRequest todoListRequest = BuildTodoListRequest();
+        TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
         doReturn(15L).when(tokenProvider).getUserId(any(String.class));
         doReturn(null).when(todoListRepository).save(any(TodoList.class));
 
         // when
-        TodoListMessageResponse result = todoListService.saveTodoList("token" , todoListRequest);
+        TodoListMessageResponse result = todoListService.saveTodoList("token" , todoListDataRequest);
 
         // then
         assertThat(result.getMessage()).isEqualTo("성공적으로 생성되었습니다.");
@@ -68,12 +68,12 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 실패 _ TodoList 탐색 실패")
     void updateTodoListFail_notFountUser() {
         // given
-        TodoListRequest todoListRequest = BuildTodoListRequest();
+        TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
         doReturn(5L).when(tokenProvider).getUserId(any(String.class));
         doReturn(Optional.empty()).when(todoListRepository).findById(5L);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListRequest));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListDataRequest));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -83,12 +83,12 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 실패 _ TodoList 유효하지 않은 접근")
     void updateTodoListFail_validRequest() {
         // given
-        TodoListRequest todoListRequest = BuildTodoListRequest();
+        TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
         doReturn(15L).when(tokenProvider).getUserId(any(String.class));
         doReturn(Optional.empty()).when(todoListRepository).findById(5L);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListRequest));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListDataRequest));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -98,13 +98,13 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 성공")
     void updateTodoList() {
         // given
-        TodoListRequest todoListRequest = BuildTodoListRequest();
+        TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
         TodoList todoList = TodoList.of("data" , 5L);
         doReturn(5L).when(tokenProvider).getUserId("token");
         doReturn(Optional.of(todoList)).when(todoListRepository).findById(5L);
 
         // when
-        TodoListMessageResponse result = todoListService.updateTodoList("token", 5L , todoListRequest);
+        TodoListMessageResponse result = todoListService.updateTodoList("token", 5L , todoListDataRequest);
 
         // then
         assertThat(result.getMessage()).isEqualTo("성공적으로 수정되었습니다.");
@@ -199,8 +199,8 @@ public class TodoListServiceTest {
         assertThat(result.getData()).isNotNull();
     }
 
-    public TodoListRequest BuildTodoListRequest() {
-        return TodoListRequest.builder().data("data").build();
+    public TodoListDataRequest BuildTodoListRequest() {
+        return TodoListDataRequest.builder().data("data").build();
     }
 
 }

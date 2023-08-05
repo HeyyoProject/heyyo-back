@@ -5,7 +5,7 @@ import com.team.heyyo.todolist.domain.TodoList;
 import com.team.heyyo.todolist.dto.TodoListDataResponse;
 import com.team.heyyo.todolist.dto.TodoListDateRequest;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
-import com.team.heyyo.todolist.dto.TodoListRequest;
+import com.team.heyyo.todolist.dto.TodoListDataRequest;
 import com.team.heyyo.todolist.exception.TodoListException;
 import com.team.heyyo.todolist.repository.TodoListRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +20,10 @@ public class TodoListService {
     private final TokenProvider tokenProvider;
 
     @Transactional
-    public TodoListMessageResponse saveTodoList(String accessToken , TodoListRequest todoListRequest) {
+    public TodoListMessageResponse saveTodoList(String accessToken , TodoListDataRequest todoListDataRequest) {
         long userId = tokenProvider.getUserId(accessToken);
 
-        TodoList todoList = TodoList.of(todoListRequest.getData() , userId);
+        TodoList todoList = TodoList.of(todoListDataRequest.getData() , userId);
         todoListRepository.save(todoList);
 
         return TodoListMessageResponse.of("성공적으로 생성되었습니다.");
@@ -35,10 +35,10 @@ public class TodoListService {
     }
 
     @Transactional
-    public TodoListMessageResponse updateTodoList(String accessToken , long todoListId , TodoListRequest todoListRequest) {
+    public TodoListMessageResponse updateTodoList(String accessToken , long todoListId , TodoListDataRequest todoListDataRequest) {
         TodoList todoList = findAndCheckValid(accessToken , todoListId);
 
-        todoList.updateData(todoListRequest.getData());
+        todoList.updateData(todoListDataRequest.getData());
 
         return TodoListMessageResponse.of("성공적으로 수정되었습니다.");
     }
