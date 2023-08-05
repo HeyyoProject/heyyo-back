@@ -4,5 +4,12 @@ import com.team.heyyo.todolist.domain.TodoList;
 import com.team.heyyo.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TodoListRepository extends JpaRepository<TodoList, Long> {
+import java.util.Optional;
+
+public interface TodoListRepository extends JpaRepository<TodoList, Long> , CustomTodoListRepository {
+
+    Optional<TodoList> findTodoListByUserId(long userId);
+
+    void deleteTodoListByTodoListId(long todoListId);
+
 }

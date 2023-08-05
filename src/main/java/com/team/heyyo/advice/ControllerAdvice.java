@@ -2,6 +2,7 @@ package com.team.heyyo.advice;
 
 import com.team.heyyo.auth.exception.AuthorizationException;
 import com.team.heyyo.auth.jwt.exception.TokenForgeryException;
+import com.team.heyyo.todolist.exception.TodoListException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class , TodoListException.class})
     public ResponseEntity<ErrorResponse> handleMethodArgumentException(BindingResult bindingResult) {
         String errorMessage = bindingResult.getFieldErrors()
                 .get(0)
