@@ -36,12 +36,14 @@ public class TodoListServiceTest {
     @Mock
     TokenProvider tokenProvider;
 
+    private final static long USER_ID = 15L;
+
     @Test
     @DisplayName("TodoList 저장")
     void saveTodoList() {
         // given
         TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
-        doReturn(15L).when(tokenProvider).getUserId(any(String.class));
+        doReturn(USER_ID).when(tokenProvider).getUserId(any(String.class));
         doReturn(null).when(todoListRepository).save(any(TodoList.class));
 
         // when
@@ -55,10 +57,11 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 삭제")
     void deleteTodoList() {
         // given
-        doNothing().when(todoListRepository).deleteTodoListByTodoListId(55L);
+        long todoListId = 55L;
+        doNothing().when(todoListRepository).deleteTodoListByTodoListId(todoListId);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.deleteTodoList(55L));
+        Throwable throwable = catchThrowable(() -> todoListService.deleteTodoList(todoListId));
 
         // then
         assertThat(throwable).doesNotThrowAnyException();
@@ -69,11 +72,11 @@ public class TodoListServiceTest {
     void updateTodoListFail_notFountUser() {
         // given
         TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
-        doReturn(5L).when(tokenProvider).getUserId(any(String.class));
-        doReturn(Optional.empty()).when(todoListRepository).findById(5L);
+        doReturn(USER_ID).when(tokenProvider).getUserId(any(String.class));
+        doReturn(Optional.empty()).when(todoListRepository).findById(USER_ID);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListDataRequest));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , USER_ID , todoListDataRequest));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -83,12 +86,13 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 실패 _ TodoList 유효하지 않은 접근")
     void updateTodoListFail_validRequest() {
         // given
+        long todoListId = 5L;
         TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
         doReturn(15L).when(tokenProvider).getUserId(any(String.class));
-        doReturn(Optional.empty()).when(todoListRepository).findById(5L);
+        doReturn(Optional.empty()).when(todoListRepository).findById(todoListId);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , 5L , todoListDataRequest));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoList("token" , todoListId , todoListDataRequest));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -98,13 +102,14 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 성공")
     void updateTodoList() {
         // given
+        long todoListId = 5L;
         TodoListDataRequest todoListDataRequest = BuildTodoListRequest();
-        TodoList todoList = TodoList.of("data" , 5L);
+        TodoList todoList = TodoList.of("data" , todoListId);
         doReturn(5L).when(tokenProvider).getUserId("token");
-        doReturn(Optional.of(todoList)).when(todoListRepository).findById(5L);
+        doReturn(Optional.of(todoList)).when(todoListRepository).findById(todoListId);
 
         // when
-        TodoListMessageResponse result = todoListService.updateTodoList("token", 5L , todoListDataRequest);
+        TodoListMessageResponse result = todoListService.updateTodoList("token", todoListId , todoListDataRequest);
 
         // then
         assertThat(result.getMessage()).isEqualTo("성공적으로 수정되었습니다.");
@@ -114,11 +119,12 @@ public class TodoListServiceTest {
     @DisplayName("TodoList completed 상태 변경 실패 _ 탐색 실패")
     void updateTodoListCompleteFail_notFountTodoList() {
         // given
-        doReturn(5L).when(tokenProvider).getUserId(any(String.class));
-        doReturn(Optional.empty()).when(todoListRepository).findById(5L);
+        long todoListId = 5L;
+        doReturn(todoListId).when(tokenProvider).getUserId(any(String.class));
+        doReturn(Optional.empty()).when(todoListRepository).findById(todoListId);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoListComplete("token" , 5L));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoListComplete("token" , todoListId));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -128,11 +134,12 @@ public class TodoListServiceTest {
     @DisplayName("TodoList 수정 실패 _ TodoList 유효하지 않은 접근")
     void updateTodoListCompleteFail_validRequest() {
         // given
+        long todoListId = 5L;
         doReturn(15L).when(tokenProvider).getUserId(any(String.class));
-        doReturn(Optional.empty()).when(todoListRepository).findById(5L);
+        doReturn(Optional.empty()).when(todoListRepository).findById(todoListId);
 
         // when
-        Throwable throwable = catchThrowable(() -> todoListService.updateTodoListComplete("token" , 5L));
+        Throwable throwable = catchThrowable(() -> todoListService.updateTodoListComplete("token" , todoListId));
 
         // then
         assertThat(throwable.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
@@ -142,12 +149,13 @@ public class TodoListServiceTest {
     @DisplayName("TodoList Completed 상태로 수정 성공")
     void updateTodoListComplete() {
         // given
-        TodoList todoList = TodoList.of("data" , 5L);
-        doReturn(5L).when(tokenProvider).getUserId("token");
-        doReturn(Optional.of(todoList)).when(todoListRepository).findById(5L);
+        long todoListId = 5L;
+        TodoList todoList = TodoList.of("data" , USER_ID);
+        doReturn(USER_ID).when(tokenProvider).getUserId("token");
+        doReturn(Optional.of(todoList)).when(todoListRepository).findById(todoListId);
 
         // when
-        TodoListMessageResponse result = todoListService.updateTodoListComplete("token", 5L);
+        TodoListMessageResponse result = todoListService.updateTodoListComplete("token", todoListId);
 
         // then
         assertThat(result.getMessage()).isEqualTo("성공적으로 수정되었습니다.");
@@ -158,8 +166,8 @@ public class TodoListServiceTest {
     void findTodoListInProgressByUserId() {
         // given
         List<TodoList> todoListList = new ArrayList<>();
-        doReturn(15L).when(tokenProvider).getUserId("token");
-        doReturn(todoListList).when(todoListRepository).findTodoListInProgressByUserId(15L);
+        doReturn(USER_ID).when(tokenProvider).getUserId("token");
+        doReturn(todoListList).when(todoListRepository).findTodoListInProgressByUserId(USER_ID);
 
         // when
         TodoListDataResponse result = todoListService.findTodoListInProgressByUserId("token");
@@ -173,8 +181,8 @@ public class TodoListServiceTest {
     void findAchievedTodoListByUserId() {
         // given
         List<TodoList> todoListList = new ArrayList<>();
-        doReturn(15L).when(tokenProvider).getUserId("token");
-        doReturn(todoListList).when(todoListRepository).findAchievedTodoListByUserId(15L);
+        doReturn(USER_ID).when(tokenProvider).getUserId("token");
+        doReturn(todoListList).when(todoListRepository).findAchievedTodoListByUserId(USER_ID);
 
         // when
         TodoListDataResponse result = todoListService.findAchievedTodoListByUserId("token");
@@ -189,8 +197,8 @@ public class TodoListServiceTest {
         // given
         List<TodoList> todoListList = new ArrayList<>();
         TodoListDateRequest request = TodoListDateRequest.builder().date("data").build();
-        doReturn(15L).when(tokenProvider).getUserId("token");
-        doReturn(todoListList).when(todoListRepository).getTodoListByDateAchieved(15L , "data");
+        doReturn(USER_ID).when(tokenProvider).getUserId("token");
+        doReturn(todoListList).when(todoListRepository).getTodoListByDateAchieved(USER_ID , "data");
 
         // when
         TodoListDataResponse result = todoListService.getTodoListByDateAchieved("token" , request);
