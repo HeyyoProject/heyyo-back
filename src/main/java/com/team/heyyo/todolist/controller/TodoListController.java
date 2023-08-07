@@ -1,23 +1,28 @@
 package com.team.heyyo.todolist.controller;
 
 import com.team.heyyo.common.AccessToken;
+import com.team.heyyo.todolist.domain.TodoList;
+import com.team.heyyo.todolist.dto.TodoListDataResponse;
 import com.team.heyyo.todolist.dto.TodoListDateRequest;
 import com.team.heyyo.todolist.dto.TodoListDataRequest;
+import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import com.team.heyyo.todolist.service.TodoListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api/todo")
 public class TodoListController {
 
     private final TodoListService todoListService;
 
     @PostMapping
-    public ResponseEntity saveTodoList(@AccessToken String accessToken , @RequestBody TodoListDataRequest todoListDataRequest) {
+    public ResponseEntity<TodoListMessageResponse> saveTodoList(@AccessToken String accessToken , @RequestBody TodoListDataRequest todoListDataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(todoListService.saveTodoList(accessToken , todoListDataRequest));
     }
 
@@ -29,29 +34,35 @@ public class TodoListController {
     }
 
     @PatchMapping("/{todoListId}")
-    public ResponseEntity updateTodoList(@AccessToken String accessToken
+    public ResponseEntity<TodoListMessageResponse> updateTodoList(@AccessToken String accessToken
             , @PathVariable long todoListId , @RequestBody TodoListDataRequest todoListDataRequest) {
         return ResponseEntity.ok().body(todoListService.updateTodoList(accessToken , todoListId , todoListDataRequest));
     }
 
     @PatchMapping("/{todoListId}/complete")
-    public ResponseEntity updateTodoListComplete(@AccessToken String accessToken, @PathVariable long todoListId) {
+    public ResponseEntity<TodoListMessageResponse> updateTodoListComplete(@AccessToken String accessToken, @PathVariable long todoListId) {
         return ResponseEntity.ok().body(todoListService.updateTodoListComplete(accessToken , todoListId));
     }
 
     @GetMapping("/progress")
-    public ResponseEntity findTodoListInProgressByUserId(@AccessToken String accessToken) {
-        return ResponseEntity.ok().body(todoListService.findTodoListInProgressByUserId(accessToken));
+    public ResponseEntity<TodoListDataResponse> findTodoListInProgressByUserId(@AccessToken String accessToken) {
+        TodoListDataResponse<List<TodoList>> result = todoListService.findTodoListInProgressByUserId(accessToken);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/achieve")
-    public ResponseEntity findAchievedTodoListByUserId(@AccessToken String accessToken) {
-        return ResponseEntity.ok().body(todoListService.findAchievedTodoListByUserId(accessToken));
+    public ResponseEntity<TodoListDataResponse> findAchievedTodoListByUserId(@AccessToken String accessToken) {
+        TodoListDataResponse<List<TodoList>> result = todoListService.findAchievedTodoListByUserId(accessToken);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/achieve/date")
-    public ResponseEntity getTodoListByDateAchieved(@AccessToken String accessToken , @RequestBody TodoListDateRequest todoListDateRequest) {
-        return ResponseEntity.ok().body(todoListService.getTodoListByDateAchieved(accessToken , todoListDateRequest));
+    public ResponseEntity<TodoListDataResponse> getTodoListByDateAchieved(@AccessToken String accessToken , @RequestBody TodoListDateRequest todoListDateRequest) {
+        TodoListDataResponse<List<TodoList>> result = todoListService.getTodoListByDateAchieved(accessToken , todoListDateRequest);
+
+        return ResponseEntity.ok().body(result);
     }
 
 }
