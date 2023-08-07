@@ -29,6 +29,8 @@ public class TodoListRepositoryTest {
     @Autowired
     EntityManager entityManager;
 
+    private final static long TODOLIST_ID = 30L;
+
     @Test
     @DisplayName("todoList 생성")
     public void saveTodoList() {
@@ -39,7 +41,7 @@ public class TodoListRepositoryTest {
         TodoList result = todoListRepository.save(todoList);
 
         // then
-        assertThat(result.getUserId()).isEqualTo(30L);
+        assertThat(result.getUserId()).isEqualTo(TODOLIST_ID);
     }
 
     @Test
@@ -50,10 +52,10 @@ public class TodoListRepositoryTest {
          todoListRepository.save(todoList);
 
         // when
-        TodoList result = todoListRepository.findTodoListByUserId(30L).get();
+        TodoList result = todoListRepository.findTodoListByUserId(TODOLIST_ID).get();
 
         // then
-        assertThat(result.getUserId()).isEqualTo(30L);
+        assertThat(result.getUserId()).isEqualTo(TODOLIST_ID);
         assertThat(result.getData()).isEqualTo("data");
     }
 
@@ -61,14 +63,15 @@ public class TodoListRepositoryTest {
     @DisplayName("todoList 제거")
     public void deleteTodoList() {
         // given
-        todoListRepository.save(createTodoList(1L));
+        long todoListId = 1L;
+        todoListRepository.save(createTodoList(todoListId));
 
         // when
-        todoListRepository.deleteTodoListByTodoListId(1L);
+        todoListRepository.deleteTodoListByTodoListId(todoListId);
         entityManager.flush();
         entityManager.clear();
 
-        Optional<TodoList> result = todoListRepository.findById(1L);
+        Optional<TodoList> result = todoListRepository.findById(todoListId);
 
         // then
         assertThat(result.isPresent()).isEqualTo(false);
@@ -83,7 +86,7 @@ public class TodoListRepositoryTest {
         todoListRepository.save(createTodoList("data" , true));
 
         // when
-        List<TodoList> result = todoListRepository.findTodoListInProgressByUserId(30L);
+        List<TodoList> result = todoListRepository.findTodoListInProgressByUserId(TODOLIST_ID);
 
         // then
         assertThat(result.size()).isEqualTo(1);
@@ -98,7 +101,7 @@ public class TodoListRepositoryTest {
         todoListRepository.save(createTodoList("data" , true));
 
         // when
-        List<TodoList> result = todoListRepository.findAchievedTodoListByUserId(30L);
+        List<TodoList> result = todoListRepository.findAchievedTodoListByUserId(TODOLIST_ID);
 
         // then
         assertThat(result.size()).isEqualTo(2);
@@ -113,7 +116,7 @@ public class TodoListRepositoryTest {
         todoListRepository.save(createTodoList("data" , true));
 
         // when
-        List<TodoList> result = todoListRepository.getTodoListByDateAchieved(30L , LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        List<TodoList> result = todoListRepository.getTodoListByDateAchieved(TODOLIST_ID , LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         // then
         assertThat(result.size()).isEqualTo(2);
@@ -123,7 +126,7 @@ public class TodoListRepositoryTest {
         return TodoList.builder()
                 .todoListId(todoListId)
                 .data("data")
-                .userId(30L)
+                .userId(TODOLIST_ID)
                 .isComplete(false)
                 .build();
     }
@@ -131,7 +134,7 @@ public class TodoListRepositoryTest {
     public TodoList createTodoList(String data) {
         return TodoList.builder()
                 .data(data)
-                .userId(30L)
+                .userId(TODOLIST_ID)
                 .isComplete(false)
                 .build();
     }
