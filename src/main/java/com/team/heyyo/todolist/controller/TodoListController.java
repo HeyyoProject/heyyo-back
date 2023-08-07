@@ -23,7 +23,9 @@ public class TodoListController {
 
     @PostMapping
     public ResponseEntity<TodoListMessageResponse> saveTodoList(@AccessToken String accessToken , @RequestBody TodoListDataRequest todoListDataRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(todoListService.saveTodoList(accessToken , todoListDataRequest));
+        TodoListMessageResponse result = todoListService.saveTodoList(accessToken , todoListDataRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @DeleteMapping("/{todoListId}")
@@ -36,12 +38,16 @@ public class TodoListController {
     @PatchMapping("/{todoListId}")
     public ResponseEntity<TodoListMessageResponse> updateTodoList(@AccessToken String accessToken
             , @PathVariable long todoListId , @RequestBody TodoListDataRequest todoListDataRequest) {
-        return ResponseEntity.ok().body(todoListService.updateTodoList(accessToken , todoListId , todoListDataRequest));
+        TodoListMessageResponse result = todoListService.updateTodoList(accessToken , todoListId , todoListDataRequest);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @PatchMapping("/{todoListId}/complete")
     public ResponseEntity<TodoListMessageResponse> updateTodoListComplete(@AccessToken String accessToken, @PathVariable long todoListId) {
-        return ResponseEntity.ok().body(todoListService.updateTodoListComplete(accessToken , todoListId));
+        TodoListMessageResponse result = todoListService.updateTodoListComplete(accessToken , todoListId);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/progress")
