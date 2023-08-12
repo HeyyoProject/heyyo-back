@@ -1,6 +1,7 @@
 package com.team.heyyo.user.domain;
 
 import com.team.heyyo.user.constant.Mbti;
+import com.team.heyyo.user.constant.UserCharacterType;
 import com.team.heyyo.user.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -46,6 +47,9 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @Enumerated(EnumType.STRING)
+    private UserCharacterType characterType;
 
     @Builder
     public User(String email, String password, String name, UserRole role) {
