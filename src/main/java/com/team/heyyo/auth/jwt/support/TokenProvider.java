@@ -1,24 +1,22 @@
 package com.team.heyyo.auth.jwt.support;
 
+import static com.team.heyyo.user.constant.UserRole.USER;
+
 import com.team.heyyo.auth.jwt.constant.JwtProperties;
-import com.team.heyyo.user.constant.UserRole;
 import com.team.heyyo.user.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
-
-import static com.team.heyyo.user.constant.UserRole.USER;
 
 @RequiredArgsConstructor
 @Service
