@@ -2,7 +2,7 @@ package com.team.heyyo.user.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -60,8 +60,8 @@ class UserCharacterTypeControllerTest {
     UserTypeRequest userTypeRequest = UserTypeRequest.of(UserCharacterType.고독);
     String content = objectMapper.writeValueAsString(userTypeRequest);
 
-    when(userCharacterTypeService.patchCharacterTypeWithAccessToken(any(UserTypeRequest.class), any()))
-      .thenReturn(true);
+    doReturn(true)
+        .when(userCharacterTypeService).patchCharacterTypeWithAccessToken(any(UserTypeRequest.class), any());
 
     //when
     ResultActions resultActions = mockMvc.perform(patch(url)
@@ -106,8 +106,9 @@ class UserCharacterTypeControllerTest {
     UserTypeRequest userTypeRequest = UserTypeRequest.of(UserCharacterType.고독);
     String content = objectMapper.writeValueAsString(userTypeRequest);
 
-    when(userCharacterTypeService.patchCharacterTypeWithAccessToken(any(UserTypeRequest.class), any()))
-        .thenReturn(false);
+    doReturn(false)
+        .when(userCharacterTypeService).patchCharacterTypeWithAccessToken(any(UserTypeRequest.class), any());
+
 
     //when
     ResultActions resultActions = mockMvc.perform(patch(url)
