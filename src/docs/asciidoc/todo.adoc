@@ -97,3 +97,15 @@ include::{snippets}/todoList/getTodoListByDateAchieved/request-fields.adoc[]
 include::{snippets}/todoList/getTodoListByDateAchieved/http-response.adoc[]
 include::{snippets}/todoList/getTodoListByDateAchieved/response-fields.adoc[]
 
+=== 특정 월에 달성한 todoList 보기
+
+==== Request
+
+include::{snippets}/todoList/getTodoListForASpecificMonth/http-request.adoc[]
+include::{snippets}/todoList/getTodoListForASpecificMonth/request-headers.adoc[]
+include::{snippets}/todoList/getTodoListForASpecificMonth/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/todoList/getTodoListForASpecificMonth/http-response.adoc[]
+include::{snippets}/todoList/getTodoListForASpecificMonth/response-fields.adoc[]

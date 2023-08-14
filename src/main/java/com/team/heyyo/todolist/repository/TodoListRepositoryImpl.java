@@ -1,13 +1,12 @@
 package com.team.heyyo.todolist.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import static com.team.heyyo.todolist.domain.QTodoList.todoList;
 import com.team.heyyo.todolist.domain.TodoList;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+
+import static com.team.heyyo.todolist.domain.QTodoList.todoList;
 
 @RequiredArgsConstructor
 public class TodoListRepositoryImpl implements CustomTodoListRepository {
@@ -33,6 +32,13 @@ public class TodoListRepositoryImpl implements CustomTodoListRepository {
     public List<TodoList> getTodoListByDateAchieved(long userId , String date) {
         return jpaQueryFactory.select(todoList).from(todoList)
                 .where(todoList.userId.eq(userId).and(todoList.isComplete.eq(true)).and(todoList.completedDate.eq(date)))
+                .fetch();
+    }
+
+    @Override
+    public List<TodoList> getTodoListForASpecificMonth(long userId , String month) {
+        return jpaQueryFactory.select(todoList).from(todoList)
+                .where(todoList.userId.eq(userId).and(todoList.isComplete.eq(true)).and(todoList.completedDate.startsWith(month)))
                 .fetch();
     }
 }

@@ -519,6 +519,52 @@ public class TodoListControllerTest {
         assertThat(((List) result.getData()).size()).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("특정 월에 달선한 TodoList 탐색")
+    public void getTodoListForASpecificMonth() throws Exception {
+        // given
+        final String url = "/api/todo/achieve/month";
+        TodoListDataResponse todoListDataResponse = TodoListDataResponse.of(createTodoLists());
+        TodoListDateRequest todoListRequest = TodoListDateRequest.builder().date("2020-07-02").build();
+        doReturn(todoListDataResponse).when(todoListService).getTodoListForASpecificMonth(any() , any());
+
+        // when
+        final ResultActions resultActions = mockMvc.perform(
+                RestDocumentationRequestBuilders.get(url)
+                        .header("Authorization", "Bearer accessToken")
+                        .content(gson.toJson(todoListRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        resultActions.andExpect(status().isOk()).andDo(
+                document("todoList/getTodoListForASpecificMonth",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("사용자 access token")
+                        ),
+                        requestFields(
+                                fieldWithPath("date").description("날짜 데이터")
+                        ),
+                        responseFields(
+                                fieldWithPath("data").description("결과 데이터"),
+                                fieldWithPath("data[].todoListId").description("todoList 식별자"),
+                                fieldWithPath("data[].data").description("todoList 데이터"),
+                                fieldWithPath("data[].userId").description("todoList 유저 정보"),
+                                fieldWithPath("data[].completedDate").description("todoList 완료 날짜"),
+                                fieldWithPath("data[].isComplete").description("todoList 완료 여부")
+                        )
+                )
+        );
+
+        final TodoListDataResponse result = gson.fromJson(
+                resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
+                TodoListDataResponse.class);
+
+        assertThat(((List) result.getData()).size()).isEqualTo(3);
+    }
+
     public List<TodoList> createTodoLists() {
         List<TodoList> todoListList = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
