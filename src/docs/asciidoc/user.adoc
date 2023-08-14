@@ -106,3 +106,45 @@ include::{snippets}/user/duplicate/email/fail/path-parameters.adoc[]
 include::{snippets}/user/duplicate/email/fail/http-response.adoc[]
 include::{snippets}/user/duplicate/email/fail/response-fields.adoc[]
 
+=== [성공] 유저 캐릭터 타입 전송
+
+==== Request
+
+include::{snippets}/user/character-type/patch/success/http-request.adoc[]
+
+==== RequestBody
+include::{snippets}/user/character-type/patch/success/request-fields.adoc[]
+
+userCharacterType 에 아래의 값중 하나를 보내주시면 됩니다.
+
+고독,
+북적,
+소심,
+소통,
+영구,
+유익,
+집중,
+한산
+
+===== Header
+include::{snippets}/user/character-type/patch/success/request-headers.adoc[]
+
+=== Response
+
+include::{snippets}/user/character-type/patch/success/http-response.adoc[]
+
+===== ResponseBody
+include::{snippets}/user/character-type/patch/success/response-fields.adoc[]
+
+=== [실패] 유저 캐릭터 타입 전송
+
+==== Request
+
+include::{snippets}/user/character-type/patch/fail/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/user/character-type/patch/fail/http-response.adoc[]
+
+===== ResponseBody
+include::{snippets}/user/character-type/patch/fail/response-fields.adoc[]

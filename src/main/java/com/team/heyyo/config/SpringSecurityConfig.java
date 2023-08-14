@@ -42,15 +42,12 @@ public class SpringSecurityConfig {
             .cors().disable()
             .httpBasic().disable()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            // H2 콘솔 사용을 위한 설정
-            .and().headers(headers -> headers.frameOptions().sameOrigin());
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 //      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
-                .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/api/tokens", "/api/users/**").permitAll()
                 .anyRequest().authenticated();
 
