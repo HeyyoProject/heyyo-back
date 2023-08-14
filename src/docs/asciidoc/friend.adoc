@@ -1,0 +1,46 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:main.html[메인 문서]
+
+=== 친구 저장 - 수락
+
+==== Request
+
+include::{snippets}/friend/saveFriend/http-request.adoc[]
+include::{snippets}/friend/saveFriend/request-fields.adoc[]
+include::{snippets}/friend/saveFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/saveFriend/http-response.adoc[]
+include::{snippets}/friend/saveFriend/response-fields.adoc[]
+
+=== 친구 목록 가져오기
+
+==== Request
+
+include::{snippets}/friend/getFriend/http-request.adoc[]
+include::{snippets}/friend/getFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/getFriend/http-response.adoc[]
+include::{snippets}/friend/getFriend/response-fields.adoc[]
+
+=== 친구 삭제
+
+==== Request
+
+include::{snippets}/friend/deleteFriend/http-request.adoc[]
+include::{snippets}/friend/deleteFriend/request-fields.adoc[]
+include::{snippets}/friend/deleteFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/deleteFriend/http-response.adoc[]

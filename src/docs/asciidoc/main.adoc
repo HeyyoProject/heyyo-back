@@ -17,3 +17,7 @@
 == Todo 문서
 
 * link:todo.html[Todo 문서]
+
+== Friend 문서
+
+* link:friend.html[Todo 문서]

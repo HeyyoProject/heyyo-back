@@ -1,4 +1,4 @@
-package com.team.heyyo.friend.domain;
+package com.team.heyyo.friend.request.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
