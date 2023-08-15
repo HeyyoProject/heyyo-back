@@ -26,11 +26,12 @@ public class UserService {
   public boolean register(UserRegisterRequest request) {
     userRepository.save(
         User.builder()
-            .email(request.getEmail())
-            .password(passwordEncoder.encode(request.getPassword()))
-            .name(request.getName())
-            .role(UserRole.USER)
-            .build()
+                .name(request.getName())
+                .nickname(request.getNickname())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .role(UserRole.USER)
+                .build()
     );
     return true;
   }
@@ -71,7 +72,6 @@ public class UserService {
     return userRepository.findByEmail(email)
         .map(user -> UserResponseCode.EMAIL_DUPLICATION)
         .orElse(UserResponseCode.SUCCESS);
-
   }
 
   public UserResponseCode findPasswordWithEmailAndName(String email, String name) {
@@ -89,4 +89,9 @@ public class UserService {
         .orElseThrow(() -> new UserNotFoundException("해당 email과 일치하는 사용자가 없습니다."));
   }
 
+  public UserResponseCode isNicknameDuplicate(String nickname) {
+    return userRepository.findByNickname(nickname)
+            .map(user -> UserResponseCode.NICKNAME_DUPLICATION)
+            .orElse(UserResponseCode.SUCCESS);
+  }
 }

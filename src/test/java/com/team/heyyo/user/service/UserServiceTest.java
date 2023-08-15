@@ -42,6 +42,7 @@ class UserServiceTest {
 
         UserRegisterRequest request = UserRegisterRequest.of(
                 "name",
+                "nickname",
                 "email",
                 "password",
                 "phoneNumber"
@@ -56,7 +57,7 @@ class UserServiceTest {
         assertThat(isRegistered).isTrue();
     }
 
-    @DisplayName("회원의 아이디와 비밀번호가 일치하면 true를 리턴한다.")
+    @DisplayName("로그인 시 회원의 아이디와 비밀번호가 일치하면 true를 리턴한다.")
     @Test
     void isEmailAndPasswordCorrect() {
         //given
@@ -76,7 +77,7 @@ class UserServiceTest {
         assertThat(userResponseCode).isEqualTo(UserResponseCode.SUCCESS);
     }
 
-    @DisplayName("회원의 아이디가 올바르지 않으면 에러를 던진다")
+    @DisplayName("회원의 이메일이 올바르지 않으면 에러를 던진다")
     @Test
     void emailNotFound() {
         //given
@@ -113,6 +114,36 @@ class UserServiceTest {
 
         //then
         assertThat(userResponseCode).isEqualTo(UserResponseCode.PASSWORD_NOT_MATCH);
+    }
+
+    @DisplayName("닉네임이 저장되어있으면 UserResponseCode SUCCESS를 반환한다.")
+    @Test
+    void isNicknameDuplicate() {
+        //given
+        final String duplicateNickname = "nickname";
+
+        doReturn(Optional.empty())
+                .when(userRepository).findByNickname(duplicateNickname);
+        //when
+        UserResponseCode successResponseCode = userService.isNicknameDuplicate(duplicateNickname);
+
+        //then
+        assertThat(successResponseCode).isEqualTo(UserResponseCode.SUCCESS);
+    }
+
+    @DisplayName("닉네임이 저장되어있으면 UserResponseCode NICKNAME_DUPLICATION을 반환한다.")
+    @Test
+    void isNicknameNotDuplicate() {
+        //given
+        final String duplicateNickname = "nickname";
+
+        doReturn(Optional.of(User.builder().build()))
+                .when(userRepository).findByNickname(duplicateNickname);
+        //when
+        UserResponseCode successResponseCode = userService.isNicknameDuplicate(duplicateNickname);
+
+        //then
+        assertThat(successResponseCode).isEqualTo(UserResponseCode.NICKNAME_DUPLICATION);
     }
 
 }
