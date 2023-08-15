@@ -72,7 +72,7 @@ public class FriendRequestControllerTest {
     }
 
     @Test
-    @DisplayName("친구 요청")
+    @DisplayName("친구 요청 하기")
     public void saveFriend() throws Exception {
         // given
         final String url = "/api/friend-request";
