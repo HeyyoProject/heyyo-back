@@ -9,5 +9,6 @@ spring:
       - submodule/application-oauth.yaml
       - submodule/application-jwt.yaml
       - submodule/application-mail.yaml
+      - submodule/application-sms.yaml
   profiles:
     default: local
