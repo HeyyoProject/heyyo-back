@@ -4,6 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.team.heyyo.friend.dto.UserResponse;
+import com.team.heyyo.friend.request.entity.FriendRequest;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -15,7 +16,6 @@ import static com.team.heyyo.user.domain.QUser.user;
 public class FriendRequestRepositoryImpl implements CustomFriendRequestRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-
 
     @Override
     public List<UserResponse> findFriendRequestByUserId(long userId) {
@@ -29,7 +29,5 @@ public class FriendRequestRepositoryImpl implements CustomFriendRequestRepositor
                                 .where(friendRequest.fromUserId.eq(userId))
                 ))
                 .fetch();
-
-
     }
 }

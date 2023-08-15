@@ -60,8 +60,7 @@ public class User implements UserDetails {
     }
 
     @Builder
-    public User(long userId , String email) {
-        this.userId = userId;
+    public User(String email) {
         this.email = email;
     }
 

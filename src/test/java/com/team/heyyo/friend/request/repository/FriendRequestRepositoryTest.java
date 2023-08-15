@@ -5,6 +5,7 @@ import com.team.heyyo.friend.dto.UserResponse;
 import com.team.heyyo.friend.request.entity.FriendRequest;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,21 +59,21 @@ public class FriendRequestRepositoryTest {
     }
 
     @Test
-    @DisplayName("친구 목록 가져오기")
-    public void getFriendList() {
+    @DisplayName("요청 목록 가져오기")
+    public void getFriendRequestList() {
         // given
-        userRepository.save(new User(1 , "email1"));
-        userRepository.save(new User(2 , "email2"));
-        userRepository.save(new User(3 , "email3"));
-        userRepository.save(new User(4 , "email4"));
+        User user1 = userRepository.save(new User( "email5"));
+        User user2 = userRepository.save(new User("email6"));
+        User user3 = userRepository.save(new User("email7"));
+        User user4 = userRepository.save(new User("email8"));
 
-        friendRequestRepository.save(buildFriend(1 , 2));
-        friendRequestRepository.save(buildFriend(1 , 3));
-        friendRequestRepository.save(buildFriend(1 , 4));
-        friendRequestRepository.save(buildFriend(2 , 1));
+        friendRequestRepository.save(buildFriend(user1.getUserId() , user2.getUserId()));
+        friendRequestRepository.save(buildFriend(user1.getUserId() , user3.getUserId()));
+        friendRequestRepository.save(buildFriend(user1.getUserId() , user4.getUserId()));
+        friendRequestRepository.save(buildFriend(user2.getUserId() , user1.getUserId()));
 
         // when
-        List<UserResponse> result = friendRequestRepository.findFriendRequestByUserId(1);
+        List<UserResponse> result = friendRequestRepository.findFriendRequestByUserId(user1.getUserId());
 
         // then
         assertThat(result.size()).isEqualTo(3);
