@@ -1,11 +1,10 @@
-package com.team.heyyo.friend.list.repository;
+package com.team.heyyo.friend.request.repository;
 
 import com.team.heyyo.config.TestConfig;
 import com.team.heyyo.friend.dto.UserResponse;
-import com.team.heyyo.friend.list.domain.Friend;
+import com.team.heyyo.friend.request.entity.FriendRequest;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,38 +20,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Import(TestConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class FriendRepositoryTest {
+public class FriendRequestRepositoryTest {
 
     @Autowired
-    FriendRepository friendRepository;
+    FriendRequestRepository friendRequestRepository;
 
     @Autowired
     UserRepository userRepository;
-
 
     @Test
     @DisplayName("친구 목록 저장")
     public void saveFriend() {
         // given
-        Friend friend = buildFriend(1 , 2);
+        FriendRequest friend = buildFriend(1 , 2);
 
         // when
-        Friend result = friendRepository.save(friend);
+        FriendRequest result = friendRequestRepository.save(friend);
 
         // then
         assertThat(result.getFromUserId()).isEqualTo(1);
     }
 
     @Test
-    @DisplayName("친구 삭제 하기")
+    @DisplayName("친구 목록 삭제 하기")
     public void deleteFriend() {
         // given
-        Friend friend = buildFriend(1 , 2);
-        friendRepository.save(friend);
+        FriendRequest friend = buildFriend(1 , 2);
+        friendRequestRepository.save(friend);
 
         // when
-        friendRepository.deleteById(friend.getFriendId());
-        Optional<Friend> result = friendRepository.findById(friend.getFriendId());
+        friendRequestRepository.deleteById(friend.getFriendRequestId());
+        Optional<FriendRequest> result = friendRequestRepository.findById(friend.getFriendRequestId());
 
         // then
         assertThat(result.isPresent()).isFalse();
@@ -67,22 +65,23 @@ public class FriendRepositoryTest {
         userRepository.save(new User(3 , "email3"));
         userRepository.save(new User(4 , "email4"));
 
-        friendRepository.save(buildFriend(1 , 2));
-        friendRepository.save(buildFriend(1 , 3));
-        friendRepository.save(buildFriend(1 , 4));
-        friendRepository.save(buildFriend(2 , 1));
+        friendRequestRepository.save(buildFriend(1 , 2));
+        friendRequestRepository.save(buildFriend(1 , 3));
+        friendRequestRepository.save(buildFriend(1 , 4));
+        friendRequestRepository.save(buildFriend(2 , 1));
 
         // when
-        List<UserResponse> result = friendRepository.findFriendByUserId(1);
+        List<UserResponse> result = friendRequestRepository.findFriendRequestByUserId(1);
 
         // then
         assertThat(result.size()).isEqualTo(3);
     }
 
-    public Friend buildFriend(long fromUser , long toUser) {
-        return Friend.builder()
+    public FriendRequest buildFriend(long fromUser , long toUser) {
+        return FriendRequest.builder()
                 .fromUserId(fromUser)
                 .toUserId(toUser)
                 .build();
     }
+
 }

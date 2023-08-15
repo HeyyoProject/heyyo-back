@@ -2,7 +2,7 @@ package com.team.heyyo.friend.list.controller;
 
 import com.team.heyyo.common.AccessToken;
 import com.team.heyyo.friend.dto.UserResponse;
-import com.team.heyyo.friend.list.dto.FriendRequestDto;
+import com.team.heyyo.friend.dto.FriendRequestDto;
 import com.team.heyyo.friend.list.service.FriendService;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import lombok.RequiredArgsConstructor;

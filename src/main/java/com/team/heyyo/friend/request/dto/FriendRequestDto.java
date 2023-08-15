@@ -1,4 +1,4 @@
-package com.team.heyyo.friend.list.dto;
+package com.team.heyyo.friend.request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
