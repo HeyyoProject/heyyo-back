@@ -1,9 +1,6 @@
 package com.team.heyyo.mail.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.team.heyyo.config.QueryDslConfig;
-import com.team.heyyo.config.TestConfig;
 import com.team.heyyo.mail.constant.MailCode;
 import com.team.heyyo.mail.dto.MailMessage;
 import com.team.heyyo.user.domain.User;
@@ -11,11 +8,12 @@ import com.team.heyyo.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Import(QueryDslConfig.class)
