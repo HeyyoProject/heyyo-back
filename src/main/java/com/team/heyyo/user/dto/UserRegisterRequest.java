@@ -15,6 +15,9 @@ public class UserRegisterRequest {
     private String name;
 
     @NotNull
+    private String nickname;
+
+    @NotNull
     private String email;
 
     @NotNull
@@ -23,20 +26,21 @@ public class UserRegisterRequest {
     @NotNull
     private String phoneNumber;
 
-    private String recommendEmail;
+    private String recommendNickname;
 
-    private UserRegisterRequest(String name, String email, String password, String phoneNumber) {
+    private UserRegisterRequest(String name, String nickname, String email, String password, String phoneNumber) {
         this.name = name;
+        this.nickname = nickname;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
 
-    public static UserRegisterRequest of(String name, String email, String password, String phoneNumber) {
-        return new UserRegisterRequest(name, email, password, phoneNumber);
+    public static UserRegisterRequest of(String name, String nickname, String email, String password, String phoneNumber) {
+        return new UserRegisterRequest(name, nickname,email, password, phoneNumber);
     }
-    public static UserRegisterRequest of(String name, String email, String password, String phoneNumber, String recommendEmail) {
-        return new UserRegisterRequest(name, email, password, phoneNumber, recommendEmail);
+    public static UserRegisterRequest of(String name, String nickname, String email, String password, String phoneNumber, String recommendNickname) {
+        return new UserRegisterRequest(name ,nickname, email, password, phoneNumber, recommendNickname);
     }
 
 }

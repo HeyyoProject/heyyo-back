@@ -30,18 +30,20 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String nickname;
+
     private String name;
 
     private String password;
 
     private String phone;
 
+    private String recommendNickname;
+
     @Enumerated(EnumType.STRING)
     private Mbti mbtiType;
 
     private Date birth;
-
-    private String nickname;
 
     private Boolean isMarketingAgree;
 
@@ -52,8 +54,9 @@ public class User implements UserDetails {
     private UserCharacterType characterType;
 
     @Builder
-    public User(String email, String password, String name, UserRole role) {
+    public User(String email, String nickname, String password, String name, UserRole role) {
         this.email = email;
+        this.nickname = nickname;
         this.password = password;
         this.name = name;
         this.role = role;
