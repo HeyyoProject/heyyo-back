@@ -83,4 +83,10 @@ public class TodoListService {
         return TodoListDataResponse.of(todoListRepository.getTodoListByDateAchieved(userId , todoListDateRequest.getDate()));
     }
 
+    public TodoListDataResponse getTodoListForASpecificMonth(String accessToken , TodoListDateRequest todoListDateRequest) {
+        long userId = tokenProvider.getUserId(accessToken);
+
+        return TodoListDataResponse.of(todoListRepository.getTodoListForASpecificMonth(userId , todoListDateRequest.getDate()));
+    }
+
 }

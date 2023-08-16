@@ -122,12 +122,39 @@ public class TodoListRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("특정 월에 달성한 TodoList 가져오기")
+    public void getTodoListForASpecificMonth() {
+        // given
+        todoListRepository.save(createTodoList(1 , "2020-05-10"));
+        todoListRepository.save(createTodoList(2 , "2021-07-21"));
+        todoListRepository.save(createTodoList(3 , "2022-08-31"));
+        todoListRepository.save(createTodoList(4 , "2021-07-01"));
+
+        // when
+        List<TodoList> result = todoListRepository.getTodoListForASpecificMonth(TODOLIST_ID , "2021-07");
+
+        // then
+        assertThat(result.size()).isEqualTo(2);
+
+    }
+
     public TodoList createTodoList(long todoListId) {
         return TodoList.builder()
                 .todoListId(todoListId)
                 .data("data")
                 .userId(TODOLIST_ID)
                 .isComplete(false)
+                .build();
+    }
+
+    public TodoList createTodoList(long todoListId , String date) {
+        return TodoList.builder()
+                .todoListId(todoListId)
+                .data("data")
+                .userId(TODOLIST_ID)
+                .isComplete(true)
+                .completedDate(date)
                 .build();
     }
 

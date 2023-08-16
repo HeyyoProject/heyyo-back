@@ -14,4 +14,6 @@ public interface CustomTodoListRepository {
 
     List<TodoList> getTodoListByDateAchieved(long userId , String date);
 
+    List<TodoList> getTodoListForASpecificMonth(long userId , String month);
+
 }

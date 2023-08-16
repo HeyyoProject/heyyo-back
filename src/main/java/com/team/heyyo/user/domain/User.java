@@ -59,6 +59,11 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    @Builder
+    public User(String email) {
+        this.email = email;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.getKey()));

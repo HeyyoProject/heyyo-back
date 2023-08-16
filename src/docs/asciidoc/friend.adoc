@@ -1,0 +1,95 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:main.html[메인 문서]
+
+=== 친구 저장 - 수락
+
+==== Request
+
+include::{snippets}/friend/saveFriend/http-request.adoc[]
+include::{snippets}/friend/saveFriend/request-fields.adoc[]
+include::{snippets}/friend/saveFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/saveFriend/http-response.adoc[]
+include::{snippets}/friend/saveFriend/response-fields.adoc[]
+
+=== 친구 목록 가져오기
+
+==== Request
+
+include::{snippets}/friend/getFriend/http-request.adoc[]
+include::{snippets}/friend/getFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/getFriend/http-response.adoc[]
+include::{snippets}/friend/getFriend/response-fields.adoc[]
+
+=== 친구 삭제
+
+==== Request
+
+include::{snippets}/friend/deleteFriend/http-request.adoc[]
+include::{snippets}/friend/deleteFriend/request-fields.adoc[]
+include::{snippets}/friend/deleteFriend/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend/deleteFriend/http-response.adoc[]
+
+=== 친구 요청 API
+
+==== Request
+
+include::{snippets}/friend-request/saveFriendRequest/http-request.adoc[]
+include::{snippets}/friend-request/saveFriendRequest/request-fields.adoc[]
+include::{snippets}/friend-request/saveFriendRequest/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend-request/saveFriendRequest/http-response.adoc[]
+include::{snippets}/friend-request/saveFriendRequest/response-fields.adoc[]
+
+=== 친구 요청 수락
+
+==== Request
+
+include::{snippets}/friend-request/approveFriendRequest/http-request.adoc[]
+include::{snippets}/friend-request/approveFriendRequest/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/friend-request/approveFriendRequest/http-response.adoc[]
+include::{snippets}/friend-request/approveFriendRequest/response-fields.adoc[]
+
+=== 친구 요청 삭제 ( 거부 )
+
+==== Request
+
+include::{snippets}/friend-request/deleteFriendRequest/http-request.adoc[]
+include::{snippets}/friend-request/deleteFriendRequest/path-parameters.adoc[]
+include::{snippets}/friend-request/deleteFriendRequest/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/friend-request/deleteFriendRequest/http-response.adoc[]
+
+=== 친구 요청 리스트 가져오기
+
+==== Request
+
+include::{snippets}/friend-request/getFriendRequest/http-request.adoc[]
+include::{snippets}/friend-request/getFriendRequest/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/friend-request/getFriendRequest/http-response.adoc[]
+include::{snippets}/friend-request/getFriendRequest/response-fields.adoc[]

@@ -207,6 +207,22 @@ public class TodoListServiceTest {
         assertThat(result.getData()).isNotNull();
     }
 
+    @Test
+    @DisplayName("특정 월에 달성한 TodoList 탐색")
+    void getTodoListForASpecificMonth() {
+        // given
+        List<TodoList> todoListList = new ArrayList<>();
+        TodoListDateRequest request = TodoListDateRequest.builder().date("data").build();
+        doReturn(USER_ID).when(tokenProvider).getUserId("token");
+        doReturn(todoListList).when(todoListRepository).getTodoListForASpecificMonth(USER_ID , "data");
+
+        // when
+        TodoListDataResponse result = todoListService.getTodoListForASpecificMonth("token" , request);
+
+        // then
+        assertThat(result.getData()).isNotNull();
+    }
+
     public TodoListDataRequest BuildTodoListRequest() {
         return TodoListDataRequest.builder().data("data").build();
     }
