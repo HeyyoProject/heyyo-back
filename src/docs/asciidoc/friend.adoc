@@ -6,7 +6,7 @@
 
 == 메인 문서
 
-link:main.html[메인 문서]
+link:index.html[메인 문서]
 
 === 친구 저장 - 수락
 

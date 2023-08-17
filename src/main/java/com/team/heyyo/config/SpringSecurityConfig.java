@@ -48,7 +48,7 @@ public class SpringSecurityConfig {
 
 //      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
-                .requestMatchers("/api/tokens", "/api/users/**").permitAll()
+                .requestMatchers("/api/tokens", "/api/users/**", "/docs/**").permitAll()
                 .anyRequest().authenticated();
 
         http.oauth2Login()
@@ -64,11 +64,11 @@ public class SpringSecurityConfig {
                 .clearAuthentication(true)
                 .deleteCookies(JwtTokenConstant.REFRESH_TOKEN.getName());
 
-        http.exceptionHandling()
-                .defaultAuthenticationEntryPointFor(
-                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-                        new AntPathRequestMatcher("/**")  //인증되지 않는 사용자가 접근시 HTTP 401 리턴
-                );
+//        http.exceptionHandling()
+//                .defaultAuthenticationEntryPointFor(
+//                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+//                        new AntPathRequestMatcher("/**")  //인증되지 않는 사용자가 접근시 HTTP 401 리턴
+//                );
 
         return http.build();
     }
