@@ -30,6 +30,7 @@ public class UserService {
                 .nickname(request.getNickname())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
+                .phone(request.getPhoneNumber())
                 .role(UserRole.USER)
                 .build()
     );
