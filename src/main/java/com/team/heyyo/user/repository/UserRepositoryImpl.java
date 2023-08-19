@@ -20,6 +20,22 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
   }
 
   @Override
+  public Long updatePasswordWithId(String password, Long userId) {
+    return queryFactory.update(QUser.user)
+            .set(QUser.user.password, password)
+            .where(QUser.user.userId.eq(userId))
+            .execute();
+  }
+
+  @Override
+  public Long updateNickNameWithId(String nickname, Long userId) {
+    return queryFactory.update(QUser.user)
+            .set(QUser.user.nickname, nickname)
+            .where(QUser.user.userId.eq(userId))
+            .execute();
+  }
+
+  @Override
   public Long updateCharacterTypeWithUserId(UserCharacterType userCharacterType, Long userId) {
     return queryFactory.update(QUser.user)
         .set(QUser.user.characterType, userCharacterType)
