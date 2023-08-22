@@ -81,6 +81,7 @@ class UserLoginControllerTest {
     User user = User.builder()
         .email(email)
         .password(encoder.encode(password))
+        .nickname("nickname")
         .build();
     userRepository.save(user);
 
@@ -105,6 +106,10 @@ class UserLoginControllerTest {
                 ),
                 responseCookies(
                     cookieWithName("refresh_token").description("refreshToken")
+                ),
+                responseFields(
+                        fieldWithPath("message").description("메시지"),
+                        fieldWithPath("nickname").description("사용자 닉네임")
                 )
             )
         );
@@ -136,9 +141,6 @@ class UserLoginControllerTest {
                 requestFields(
                     fieldWithPath("email").description("유저 이메일"),
                     fieldWithPath("password").description("유저 비밀번호")
-                ),
-                responseFields(
-                    fieldWithPath("message").description("메시지")
                 )
             )
         );
