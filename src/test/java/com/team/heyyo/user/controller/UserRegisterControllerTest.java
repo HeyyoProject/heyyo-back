@@ -191,7 +191,7 @@ class UserRegisterControllerTest {
             resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
             UserBaseResponse.class
     );
-    assertThat(response.message()).isEqualTo("성공");
+    assertThat(response.getMessage()).isEqualTo("성공");
 
   }
 
@@ -227,7 +227,7 @@ class UserRegisterControllerTest {
             resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
             UserBaseResponse.class
     );
-    assertThat(response.message()).isEqualTo("사용 불가능한 닉네임입니다.");
+    assertThat(response.getMessage()).isEqualTo("사용 불가능한 닉네임입니다.");
 
   }
 
