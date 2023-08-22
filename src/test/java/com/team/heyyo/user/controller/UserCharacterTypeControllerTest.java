@@ -93,7 +93,7 @@ class UserCharacterTypeControllerTest {
         UserBaseResponse.class
     );
 
-    assertThat(response.message()).isEqualTo("캐릭터 타입이 저장 되었습니다.");
+    assertThat(response.getMessage()).isEqualTo("캐릭터 타입이 저장 되었습니다.");
   }
 
   @DisplayName("캐릭터 타입 저장에 실패시 400 을 리턴한다.")
@@ -140,7 +140,7 @@ class UserCharacterTypeControllerTest {
         UserBaseResponse.class
     );
 
-    assertThat(response.message()).isEqualTo("캐릭터 타입 저장에 실패 하였습니다.");
+    assertThat(response.getMessage()).isEqualTo("캐릭터 타입 저장에 실패 하였습니다.");
   }
 
 }
