@@ -1,0 +1,49 @@
+# API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 메인 문서
+
+link:index.html[메인 문서]
+
+=== 사용자 정보 가져오기
+
+==== Request
+
+include::{snippets}/user/preference/getUserByToken/http-request.adoc[]
+include::{snippets}/user/preference/getUserByToken/request-headers.adoc[]
+include::{snippets}/user/preference/getUserByToken/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/user/preference/getUserByToken/http-response.adoc[]
+include::{snippets}/user/preference/getUserByToken/response-fields.adoc[]
+
+=== 닉네임 변경하기
+
+==== Request
+
+include::{snippets}/user/preference/modifyNickname/http-request.adoc[]
+include::{snippets}/user/preference/modifyNickname/request-headers.adoc[]
+include::{snippets}/user/preference/modifyNickname/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/user/preference/modifyNickname/http-response.adoc[]
+include::{snippets}/user/preference/modifyNickname/response-fields.adoc[]
+
+=== 비밀번호 변경하기
+
+==== Request
+
+include::{snippets}/user/preference/modifyPassword/http-request.adoc[]
+include::{snippets}/user/preference/modifyPassword/request-headers.adoc[]
+include::{snippets}/user/preference/modifyPassword/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/user/preference/modifyPassword/http-response.adoc[]
+include::{snippets}/user/preference/modifyPassword/response-fields.adoc[]
