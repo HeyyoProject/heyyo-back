@@ -59,11 +59,6 @@ public class SpringSecurityConfig {
                 .userInfoEndpoint()
                 .userService(oauth2UserCustomService);
 
-//        http.logout()
-//                .logoutUrl("/api/logout")
-//                .clearAuthentication(true)
-//                .deleteCookies(JwtTokenConstant.REFRESH_TOKEN.getName());
-
 //        http.exceptionHandling()
 //                .defaultAuthenticationEntryPointFor(
 //                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
