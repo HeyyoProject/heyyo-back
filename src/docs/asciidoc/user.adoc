@@ -60,6 +60,18 @@ include::{snippets}/user/login/wrongPassword/http-request.adoc[]
 
 include::{snippets}/user/login/wrongPassword/http-response.adoc[]
 
+
+=== 유저 로그아웃
+
+==== Request
+
+include::{snippets}/user/logout/http-request.adoc[]
+include::{snippets}/user/logout/request-cookies.adoc[]
+
+==== Response
+
+include::{snippets}/user/logout/http-response.adoc[]
+
 === 유저 비밀번호 찾기
 
 ==== Request
