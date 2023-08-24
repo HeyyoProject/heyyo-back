@@ -5,4 +5,11 @@ spring:
     import:
       - submodule/application-db.yaml
 
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  sql.init.mode: always
