@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -23,24 +20,31 @@ public class UserLoginController {
 
   @PostMapping("/login")
   public ResponseEntity<UserBaseResponse> login(
-      @RequestBody UserLoginRequest userLoginRequest,
-      HttpServletRequest request,
-      HttpServletResponse response
+          @RequestBody UserLoginRequest userLoginRequest,
+          HttpServletRequest request,
+          HttpServletResponse response
   ) {
 
     UserResponseCode responseCode = userService.isEmailAndPasswordCorrect(userLoginRequest.email(),
-        userLoginRequest.password());
+            userLoginRequest.password());
     userService.setTokensIfEmailAndPasswordCorrect(responseCode, userLoginRequest.email(), request,
-        response);
+            response);
 
     if (responseCode.getStatus() == 200) {
       String nickname = userService.findByEmail(userLoginRequest.email()).getNickname();
 
       return ResponseEntity.status(responseCode.getStatus())
-          .body(UserLoginResponse.of(responseCode.getMessage(), nickname));
+              .body(UserLoginResponse.of(responseCode.getMessage(), nickname));
     }
 
     return ResponseEntity.status(responseCode.getStatus())
-        .body(UserBaseResponse.of(responseCode.getMessage()));
+            .body(UserBaseResponse.of(responseCode.getMessage()));
+  }
+
+  @GetMapping("/logout")
+  public ResponseEntity<Void> logout(HttpServletResponse response) {
+    userService.deleteRefreshTokenCookie(response);
+
+    return ResponseEntity.ok().build();
   }
 }

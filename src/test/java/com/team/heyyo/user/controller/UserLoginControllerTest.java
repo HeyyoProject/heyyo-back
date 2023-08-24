@@ -5,6 +5,7 @@ import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.dto.UserLoginRequest;
 import com.team.heyyo.user.dto.UserRegisterRequest;
 import com.team.heyyo.user.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,13 +28,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.restdocs.cookies.CookieDocumentation.cookieWithName;
-import static org.springframework.restdocs.cookies.CookieDocumentation.responseCookies;
+import static org.springframework.restdocs.cookies.CookieDocumentation.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -184,6 +185,31 @@ class UserLoginControllerTest {
                 )
             )
         );
-
   }
-} 
+
+    @DisplayName("로그아웃시 refreshtoken이 담겨있는 쿠키를 지운다.")
+    @Test
+    void logoutSuccess() throws Exception {
+      //given
+      final String api = USER_API + "/logout";
+      final Cookie refreshToken = new Cookie("refresh_token", "refreshToken");
+
+      //when
+      ResultActions resultActions = mockMvc.perform(
+              get(api)
+                      .cookie(refreshToken)
+      ).andDo(print());
+
+      //then
+      resultActions.andExpect(status().isOk())
+              .andDo(
+                      document("user/logout",
+                              preprocessRequest(prettyPrint()),
+                              preprocessResponse(prettyPrint()),
+                              requestCookies(
+                                      cookieWithName("refresh_token").description("cookie에 담긴 refreshToken")
+                              )
+                      )
+              );
+    }
+}

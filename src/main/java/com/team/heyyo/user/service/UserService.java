@@ -1,5 +1,6 @@
 package com.team.heyyo.user.service;
 
+import com.team.heyyo.auth.jwt.constant.JwtTokenConstant;
 import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import com.team.heyyo.user.constant.UserResponseCode;
@@ -11,6 +12,7 @@ import com.team.heyyo.user.dto.UserResponse;
 import com.team.heyyo.user.exception.UserNotFoundException;
 import com.team.heyyo.user.handler.UserLoginHandler;
 import com.team.heyyo.user.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -141,4 +143,11 @@ public class UserService {
     return UserResponse.createUserResponse(user);
   }
 
+  public void deleteRefreshTokenCookie(HttpServletResponse response) {
+    Cookie refreshTokenCookie = new Cookie(JwtTokenConstant.REFRESH_TOKEN.getName(), null);
+    refreshTokenCookie.setMaxAge(0);
+    refreshTokenCookie.setPath("/");
+
+    response.addCookie(refreshTokenCookie);
+  }
 }
