@@ -7,6 +7,7 @@ import com.team.heyyo.sms.dto.SmsResponseDto;
 import com.team.heyyo.sms.dto.ToSmsServerRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ class SmsWebClientTest {
     @Autowired
     private SmsWebClient smsWebClient;
 
+    @Disabled
     @DisplayName("naver sms api 서버로 sms 요청을 보낸다.")
     @Test
     void sendRequestNaverSmsApi() throws JsonProcessingException {
