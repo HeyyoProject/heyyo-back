@@ -9,32 +9,26 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
-@Table(name = "group_study_tb")
+@Table(name = "group_study_like_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class GroupStudy {
+public class GroupStudyLike {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupStudyId;
+    private Long groupStudyLikeId;
 
-    @Column(name = "owner_user_id")
     private Long userId;
 
-    private String title;
-
-    private String description;
-
-    private String session;
+    private Long groupStudyId;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
-    public GroupStudy(Long userId, String title, String description, String session) {
+    public GroupStudyLike(Long userId, Long groupStudyId, LocalDateTime createdAt) {
         this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.session = session;
+        this.groupStudyId = groupStudyId;
+        this.createdAt = createdAt;
     }
 }
