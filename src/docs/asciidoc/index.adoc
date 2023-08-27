@@ -20,4 +20,8 @@
 
 == Friend 문서
 
-* link:friend.html[Todo 문서]
+* link:friend.html[Friend 문서]
+
+== GroupStudy 문서
+
+* link:groupStudy.html[GroupStudy 문서]
