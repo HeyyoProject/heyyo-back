@@ -1,0 +1,35 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:index.html[메인 문서]
+
+== GroupStudy API
+
+=== 최근에 생긴 그룹공부방 리스트 가져오기 (12개)
+
+==== Request
+
+include::{snippets}/group-study/getRecentGroupStudyList/success/http-request.adoc[]
+include::{snippets}/group-study/getRecentGroupStudyList/success/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/group-study/getRecentGroupStudyList/success/http-response.adoc[]
+include::{snippets}/group-study/getRecentGroupStudyList/success/response-fields.adoc[]
+
+=== 오늘 하루 좋아요를 가장 많이 받은 리스트 가져오기 (12개)
+
+==== Request
+
+include::{snippets}/group-study/getBestGroupStudyList/success/http-request.adoc[]
+include::{snippets}/group-study/getBestGroupStudyList/success/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/group-study/getBestGroupStudyList/success/http-response.adoc[]
+include::{snippets}/group-study/getBestGroupStudyList/success/response-fields.adoc[]
