@@ -1,6 +1,5 @@
 package com.team.heyyo.config;
 
-import com.team.heyyo.auth.jwt.constant.JwtTokenConstant;
 import com.team.heyyo.auth.jwt.repository.RefreshTokenRepository;
 import com.team.heyyo.auth.jwt.service.RefreshTokenService;
 import com.team.heyyo.auth.jwt.support.TokenAuthenticationFilter;
@@ -14,16 +13,11 @@ import com.team.heyyo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @RequiredArgsConstructor
 @Configuration
@@ -48,7 +42,7 @@ public class SpringSecurityConfig {
 
 //      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
-                .requestMatchers("/api/tokens", "/api/users/**", "/docs/**", "/api/users/logout").permitAll()
+                .requestMatchers("/api/tokens", "/api/users/**", "/docs/**","/docs", "/api/users/logout").permitAll()
                 .anyRequest().authenticated();
 
         http.oauth2Login()
