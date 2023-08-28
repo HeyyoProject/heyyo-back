@@ -4,9 +4,9 @@ import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.group.study.domain.GroupStudyTag;
 import com.team.heyyo.group.study.dto.GroupStudyResponse;
-import com.team.heyyo.group.study.repository.GroupStudyLikeRepository;
-import com.team.heyyo.group.study.repository.GroupStudyRepository;
-import com.team.heyyo.group.study.repository.GroupStudyTagRepository;
+import com.team.heyyo.group.study.repository.groupstudylike.GroupStudyLikeRepository;
+import com.team.heyyo.group.study.repository.groupstudy.GroupStudyRepository;
+import com.team.heyyo.group.study.repository.groupstudytag.GroupStudyTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,8 +67,6 @@ public class GroupStudyService {
     }
 
     private List<String> getGroupStudyTagList(GroupStudy groupStudy) {
-        List<String> groupStudyTags = groupStudyTagRepository.findByGroupStudyId(groupStudy.getGroupStudyId())
-                .stream().map(GroupStudyTag::getTagData).toList();
-        return groupStudyTags;
+        return groupStudyTagRepository.findByTagDataByGroupStudyId(groupStudy.getGroupStudyId());
     }
 }
