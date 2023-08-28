@@ -10,6 +10,8 @@ link:index.html[메인 문서]
 
 == GroupStudy API
 
+== 그룹 공부방0 페이지 API
+
 === 최근에 생긴 그룹공부방 리스트 가져오기 (12개)
 
 ==== Request
@@ -33,3 +35,67 @@ include::{snippets}/group-study/getBestGroupStudyList/success/request-headers.ad
 
 include::{snippets}/group-study/getBestGroupStudyList/success/http-response.adoc[]
 include::{snippets}/group-study/getBestGroupStudyList/success/response-fields.adoc[]
+
+== 그룹 공부방 페이지 API
+
+=== MBTI (그룹공부방0 의 키워드와 일치) - 여기서 앞 영어 부분만 보면 됩니다!
+==== 앞의 영어부분에 따라서 api에서 mbti 부분에 넣어주시면 됩니다.
+Loneliness("고독해요");
+
+Communication("소통해요");
+
+Crowded("북적해요");
+
+Quiet("한산해요");
+
+Researching("연구해요");
+
+Useful("유익해요");
+
+Timid("소심해요");
+
+Focus("집중해요");
+
+=== 키워드에 따른 최근에 생긴 그룹 공부방 리스트 가져오기 (6개)
+
+==== Request
+
+include::{snippets}/group-study/getRecentMbtiGroupStudyList/success/http-request.adoc[]
+===== requestHeader
+include::{snippets}/group-study/getRecentMbtiGroupStudyList/success/request-headers.adoc[]
+===== pathParameter
+include::{snippets}/group-study/getRecentMbtiGroupStudyList/success/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/group-study/getRecentMbtiGroupStudyList/success/http-response.adoc[]
+include::{snippets}/group-study/getRecentMbtiGroupStudyList/success/response-fields.adoc[]
+
+=== 키워드에 해당하는 좋아요를 가장 많이 받은 그룹 공부방 리스트 가져오기 (6개)
+
+==== Request
+
+include::{snippets}/group-study/getMostLikeMbtiList/success/http-request.adoc[]
+===== pathParameter
+include::{snippets}/group-study/getMostLikeMbtiList/success/path-parameters.adoc[]
+===== requestHeader
+include::{snippets}/group-study/getMostLikeMbtiList/success/request-headers.adoc[]
+
+
+==== Response
+
+include::{snippets}/group-study/getMostLikeMbtiList/success/http-response.adoc[]
+include::{snippets}/group-study/getMostLikeMbtiList/success/response-fields.adoc[]
+
+=== 로그인한 사용자의 MBTI(keyword) 와 반대되는 그룹공부방 리스트 가져오기 (8개)
+
+==== Request
+
+include::{snippets}/group-study/getOppositeMbtiGroupStudyList/success/http-request.adoc[]
+===== requestHeader
+include::{snippets}/group-study/getOppositeMbtiGroupStudyList/success/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/group-study/getOppositeMbtiGroupStudyList/success/http-response.adoc[]
+include::{snippets}/group-study/getOppositeMbtiGroupStudyList/success/response-fields.adoc[]
