@@ -1,4 +1,4 @@
-package com.team.heyyo.group.study.repository;
+package com.team.heyyo.group.study.repository.groupstudy;
 
 import com.team.heyyo.group.study.domain.GroupStudy;
 import org.springframework.data.jpa.repository.JpaRepository;
