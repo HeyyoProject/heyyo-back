@@ -5,6 +5,10 @@ import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.group.study.domain.GroupStudyLike;
 import com.team.heyyo.group.study.repository.groupstudy.GroupStudyRepository;
 import com.team.heyyo.group.study.repository.groupstudylike.GroupStudyLikeRepository;
+import com.team.heyyo.user.constant.Mbti;
+import com.team.heyyo.user.constant.UserRole;
+import com.team.heyyo.user.domain.User;
+import com.team.heyyo.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,9 @@ class GroupStudyRepositoryTest {
 
     @Autowired
     GroupStudyLikeRepository groupStudyLikeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @DisplayName("그룹스터디 좋아요 가장많은 순으로 반환한다.")
     @Test
@@ -49,6 +56,80 @@ class GroupStudyRepositoryTest {
         assertThat(groupStudiesOrderedByMostLikes.get(1).getGroupStudyId()).isEqualTo(groupStudy2Id);
         assertThat(groupStudiesOrderedByMostLikes.get(2).getGroupStudyId()).isEqualTo(groupStudy3Id);
         assertThat(groupStudiesOrderedByMostLikes.size()).isEqualTo(12);
+
+    }
+
+    @DisplayName("Mbti 타입에 맞는 그룹스터디를 최신순으로 반환한다.")
+    @Test
+    void selectGroupStudyDetailListWithUserMbti() {
+        //given
+        Mbti mbti = Mbti.Crowded;
+
+        User user = User.builder()
+                .email("email")
+                .name("name")
+                .password("password")
+                .nickname("nickNames")
+                .role(UserRole.USER)
+                .mbti(mbti)
+                .build();
+
+        User sameMbtiUser = User.builder()
+                .email("email2")
+                .name("name2")
+                .password("password2")
+                .nickname("nickNames2")
+                .role(UserRole.USER)
+                .mbti(mbti)
+                .build();
+
+        User differentMbtiUser = User.builder()
+                .email("email3")
+                .name("name3")
+                .password("password3")
+                .nickname("nickNames3")
+                .role(UserRole.USER)
+                .mbti(Mbti.Timid)
+                .build();
+
+        userRepository.save(user);
+        userRepository.save(sameMbtiUser);
+        userRepository.save(differentMbtiUser);
+
+        GroupStudy userGroupStudy = GroupStudy.builder()
+                .userId(user.getUserId())
+                .description("description")
+                .title("title")
+                .session("session")
+                .build();
+
+        GroupStudy sameMbtiUserGroupStudy = GroupStudy.builder()
+                .userId(sameMbtiUser.getUserId())
+                .description("description")
+                .title("title")
+                .session("session")
+                .build();
+
+        GroupStudy differentMbtiUserGroupStudy = GroupStudy.builder()
+                .userId(differentMbtiUser.getUserId())
+                .description("description")
+                .title("title")
+                .session("session")
+                .build();
+
+
+
+        groupStudyRepository.save(userGroupStudy);
+        groupStudyRepository.save(sameMbtiUserGroupStudy);
+        groupStudyRepository.save(differentMbtiUserGroupStudy);
+
+        //when
+        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(user.getUserId(), mbti, 2);
+
+        //then
+        assertThat(groupStudies).hasSize(2);
+        assertThat(groupStudies.get(0).getUserId()).isEqualTo(user.getUserId());
+        assertThat(groupStudies.get(1).getUserId()).isEqualTo(sameMbtiUser.getUserId());
 
     }
 

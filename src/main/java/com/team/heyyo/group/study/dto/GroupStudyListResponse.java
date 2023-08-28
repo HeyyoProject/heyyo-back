@@ -8,7 +8,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class GroupStudyResponse{
+public class GroupStudyListResponse {
 
 
     private String title;
@@ -16,7 +16,7 @@ public class GroupStudyResponse{
     private int viewerCount;
     private boolean isLiked;
 
-    public static GroupStudyResponse of(String title, List<String> tags, int viewerCount, boolean isLiked) {
-        return new GroupStudyResponse(title, tags, viewerCount, isLiked);
+    public static GroupStudyListResponse of(String title, List<String> tags, int viewerCount, boolean isLiked) {
+        return new GroupStudyListResponse(title, tags, viewerCount, isLiked);
     }
 }

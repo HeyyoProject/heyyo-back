@@ -1,7 +1,9 @@
 package com.team.heyyo.group.study.controller;
 
-import com.team.heyyo.group.study.dto.GroupStudyResponse;
-import com.team.heyyo.group.study.service.GroupStudyService;
+import com.team.heyyo.group.study.dto.GroupStudyListResponse;
+import com.team.heyyo.group.study.service.GroupStudyDetailPageListService;
+import com.team.heyyo.group.study.service.GroupStudyMainPageListService;
+import com.team.heyyo.user.constant.Mbti;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,7 +49,10 @@ class GroupStudyControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    GroupStudyService groupStudyService;
+    GroupStudyMainPageListService groupStudyMainPageListService;
+
+    @MockBean
+    GroupStudyDetailPageListService groupStudyDetailPageListService;
 
     @BeforeEach
     public void init(WebApplicationContext webApplicationContext,
@@ -64,12 +71,12 @@ class GroupStudyControllerTest {
         //given
         final String url = API + "/recent";
 
-        GroupStudyResponse groupStudyResponse1 = GroupStudyResponse.of("title1", List.of("tag1", "tag2"), 100, true);
-        GroupStudyResponse groupStudyResponse2 = GroupStudyResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
-        List<GroupStudyResponse> list = List.of(groupStudyResponse1, groupStudyResponse2);
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
 
         doReturn(list)
-                .when(groupStudyService).getRecentGroupStudyList(any());
+                .when(groupStudyMainPageListService).getRecentGroupStudyList(any());
 
         //when
         ResultActions resultActions = mockMvc.perform(get(url)
@@ -91,8 +98,6 @@ class GroupStudyControllerTest {
                                 fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
                         )
                 ));
-
-
     }
 
     @DisplayName("오늘 하루 좋아요가 많은 그룹스터디의 리스트들을 반환한다.")
@@ -101,12 +106,12 @@ class GroupStudyControllerTest {
         //given
         final String url = API + "/best";
 
-        GroupStudyResponse groupStudyResponse1 = GroupStudyResponse.of("title1", List.of("tag1", "tag2"), 100, true);
-        GroupStudyResponse groupStudyResponse2 = GroupStudyResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
-        List<GroupStudyResponse> list = List.of(groupStudyResponse1, groupStudyResponse2);
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
 
         doReturn(list)
-                .when(groupStudyService).getBestGroupStudyListFromToday(any());
+                .when(groupStudyMainPageListService).getBestGroupStudyListFromToday(any());
 
         //when
         ResultActions resultActions = mockMvc.perform(get(url)
@@ -128,8 +133,117 @@ class GroupStudyControllerTest {
                                 fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
                         )
                 ));
+    }
 
+    @DisplayName("MBTI 에 해당하는 새로생긴 그룹방 리스트를 리턴한다.")
+    @Test
+    void getRecentMbtiGroupStudyList() throws Exception {
+        //given
+        final String url = API + "/detail/recent/{mbti}";
 
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
+
+        doReturn(list)
+                .when(groupStudyDetailPageListService).getRecentGroupStudyDetailList(any(), any());
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(url, Mbti.Focus.name())
+                .header("Authorization", "Bearer accessToken")
+        ).andDo(print());
+
+        //then
+        resultActions.andExpect(status().isOk())
+                .andDo(document("group-study/getRecentMbtiGroupStudyList/success",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("accessToken")
+                        ),
+                        pathParameters(
+                                parameterWithName("mbti").description("해당 키워드 타입")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].title").description("그룹스터디 제목"),
+                                fieldWithPath("[].tags[]").description("그룹스터디 태그들"),
+                                fieldWithPath("[].viewerCount").description("그룹스터디 시청자수"),
+                                fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
+                        )
+                ));
+    }
+
+    @DisplayName("MBTI 에 해당하는 좋아요를 많이 받은 순의 그룹방 리스트를 리턴한다.")
+    @Test
+    void getMostLikeMbtiGroupStudyList() throws Exception {
+        //given
+        final String url = API + "/detail/best/{mbti}";
+
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
+
+        doReturn(list)
+                .when(groupStudyDetailPageListService).getMostLikeGroupStudyDetailList(any(), any());
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(url, Mbti.Focus.name())
+                .header("Authorization", "Bearer accessToken")
+        ).andDo(print());
+
+        //then
+        resultActions.andExpect(status().isOk())
+                .andDo(document("group-study/getMostLikeMbtiList/success",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("accessToken")
+                        ),
+                        pathParameters(
+                                parameterWithName("mbti").description("해당 키워드 타입")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].title").description("그룹스터디 제목"),
+                                fieldWithPath("[].tags[]").description("그룹스터디 태그들"),
+                                fieldWithPath("[].viewerCount").description("그룹스터디 시청자수"),
+                                fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
+                        )
+                ));
+    }
+
+    @DisplayName("사용자의 MBTI와 반대되는 그룹방의 리스트를 리턴한다.")
+    @Test
+    void getOppositeMbtiGroupStudyList() throws Exception {
+        //given
+        final String url = API + "/detail/opposite";
+
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
+
+        doReturn(list)
+                .when(groupStudyDetailPageListService).getOppositeUserMbtiGroupStudyList(any());
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(url)
+                .header("Authorization", "Bearer accessToken")
+        ).andDo(print());
+
+        //then
+        resultActions.andExpect(status().isOk())
+                .andDo(document("group-study/getOppositeMbtiGroupStudyList/success",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("accessToken")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].title").description("그룹스터디 제목"),
+                                fieldWithPath("[].tags[]").description("그룹스터디 태그들"),
+                                fieldWithPath("[].viewerCount").description("그룹스터디 시청자수"),
+                                fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
+                        )
+                ));
     }
 
 
