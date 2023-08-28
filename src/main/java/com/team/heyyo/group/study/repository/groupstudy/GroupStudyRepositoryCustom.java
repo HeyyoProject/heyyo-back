@@ -1,4 +1,4 @@
-package com.team.heyyo.group.study.repository;
+package com.team.heyyo.group.study.repository.groupstudy;
 
 import com.team.heyyo.group.study.domain.GroupStudy;
 
@@ -8,5 +8,6 @@ public interface GroupStudyRepositoryCustom {
     public List<GroupStudy> selectRecentGroupStudies();
 
     public List<GroupStudy> findGroupStudiesOrderedByMostLikesFromToday();
+
 }
 

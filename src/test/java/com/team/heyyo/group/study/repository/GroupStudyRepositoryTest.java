@@ -3,6 +3,8 @@ package com.team.heyyo.group.study.repository;
 import com.team.heyyo.config.TestConfig;
 import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.group.study.domain.GroupStudyLike;
+import com.team.heyyo.group.study.repository.groupstudy.GroupStudyRepository;
+import com.team.heyyo.group.study.repository.groupstudylike.GroupStudyLikeRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

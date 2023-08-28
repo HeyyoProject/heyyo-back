@@ -1,4 +1,4 @@
-package com.team.heyyo.group.study.repository;
+package com.team.heyyo.group.study.repository.groupstudy;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.team.heyyo.group.study.domain.GroupStudy;
