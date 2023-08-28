@@ -1,17 +1,25 @@
 package com.team.heyyo.group.study.repository.groupstudy;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.team.heyyo.group.study.domain.GroupStudy;
+import com.team.heyyo.user.constant.Mbti;
+import com.team.heyyo.user.domain.QUser;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.querydsl.jpa.JPAExpressions.select;
 import static com.team.heyyo.group.study.domain.QGroupStudy.groupStudy;
 import static com.team.heyyo.group.study.domain.QGroupStudyLike.groupStudyLike;
+import static com.team.heyyo.user.constant.Mbti.*;
+import static com.team.heyyo.user.domain.QUser.user;
 
 @RequiredArgsConstructor
-public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom{
+public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
@@ -38,4 +46,89 @@ public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom{
                 .fetch();
     }
 
+    @Override
+    public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit) {
+        return queryFactory.selectFrom(groupStudy)
+                .where(
+                        select(user.mbtiType)
+                                .from(user)
+                                .where(user.userId.eq(groupStudy.userId))
+                                .eq(mbti)
+                )
+                .orderBy(groupStudy.createdAt.desc())
+                .limit(limit)
+                .fetch();
+    }
+
+    @Override
+    public List<GroupStudy> selectMostLikeGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit) {
+        return queryFactory.selectFrom(groupStudy)
+                .leftJoin(groupStudyLike).on(groupStudyLike.groupStudyId.eq(groupStudy.groupStudyId))
+                .groupBy(groupStudy.groupStudyId)
+                .orderBy(groupStudyLike.groupStudyId.count().desc())
+                .limit(limit)
+                .fetch();
+    }
+
+    @Override
+    public List<GroupStudy> selectOppositeUserMbtiGroupStudyList(Long userId, int limit) {
+
+        Mbti userMbti = getUserMbti(userId);
+
+        BooleanExpression condition = null;
+
+        switch (userMbti) {
+            case Loneliness -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Focus))
+            );
+            case Communication -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Timid))
+            );
+            case Crowded -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Quiet))
+            );
+            case Quiet -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Crowded))
+            );
+            case Researching -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Useful))
+            );
+            case Useful -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Researching))
+            );
+            case Timid -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Communication))
+            );
+            case Focus -> condition = groupStudy.userId.in(
+                    select(user.userId)
+                            .from(user)
+                            .where(user.mbtiType.eq(Loneliness))
+            );
+        }
+        return queryFactory.selectFrom(groupStudy)
+                .where(condition) // 생성한 조건을 적용합니다
+                .limit(limit)
+                .fetch();
+
+    }
+
+    private Mbti getUserMbti(Long userId) {
+        return queryFactory.select(user.mbtiType)
+                .where(user.userId.eq(userId))
+                .fetchOne();
+    }
 }
