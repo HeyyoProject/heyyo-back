@@ -2,6 +2,7 @@ package com.team.heyyo.group.study.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,4 +18,10 @@ public class GroupStudyTag {
     private Long groupStudyId;
 
     private String tagData;
+
+    @Builder
+    private GroupStudyTag(Long groupStudyId, String tagData) {
+        this.groupStudyId = groupStudyId;
+        this.tagData = tagData;
+    }
 }
