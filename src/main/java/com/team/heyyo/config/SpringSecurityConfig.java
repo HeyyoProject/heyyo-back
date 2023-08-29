@@ -42,8 +42,9 @@ public class SpringSecurityConfig {
 
 //      토큰 재발급, 로그인 URL 은 열어두고, 나머지 API 는 인증 필요
         http.authorizeHttpRequests()
-                .requestMatchers("/api/tokens", "/api/users/**", "/docs/**","/docs", "/api/users/logout").permitAll()
-                .anyRequest().authenticated();
+                .requestMatchers("/**").permitAll();
+//                .requestMatchers("/api/tokens", "/api/users/**", "/docs/**","/docs", "/api/users/logout" , "/**").permitAll();
+//                .anyRequest().authenticated();
 
         http.oauth2Login()
                 .authorizationEndpoint()
