@@ -36,6 +36,19 @@ include::{snippets}/group-study/getBestGroupStudyList/success/request-headers.ad
 include::{snippets}/group-study/getBestGroupStudyList/success/http-response.adoc[]
 include::{snippets}/group-study/getBestGroupStudyList/success/response-fields.adoc[]
 
+=== 추천 공부방 api ( 이런 공부방은 어때 yo ! )
+
+==== Request
+
+include::{snippets}/group-study/getRecommendGroupStudyList/success/http-request.adoc[]
+include::{snippets}/group-study/getRecommendGroupStudyList/success/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/group-study/getRecommendGroupStudyList/success/http-response.adoc[]
+include::{snippets}/group-study/getRecommendGroupStudyList/success/response-fields.adoc[]
+
+
 == 그룹 공부방 페이지 API
 
 === MBTI (그룹공부방0 의 키워드와 일치) - 여기서 앞 영어 부분만 보면 됩니다!
