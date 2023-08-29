@@ -155,7 +155,7 @@ class GroupStudyControllerTest {
 
         //then
         resultActions.andExpect(status().isOk())
-                .andDo(document("group-study/getBestGroupStudyList/success",
+                .andDo(document("group-study/getRecommendGroupStudyList/success",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
