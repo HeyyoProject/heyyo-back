@@ -135,6 +135,41 @@ class GroupStudyControllerTest {
                 ));
     }
 
+    @DisplayName("오늘 하루 좋아요가 많은 그룹스터디의 리스트들을 반환한다.")
+    @Test
+    void getRecommendGroupStudyList() throws Exception {
+        //given
+        final String url = API + "/recommend";
+
+        GroupStudyListResponse groupStudyListResponse1 = GroupStudyListResponse.of("title1", List.of("tag1", "tag2"), 100, true);
+        GroupStudyListResponse groupStudyListResponse2 = GroupStudyListResponse.of("title2", List.of("tag1", "tag2", "tag3"), 200, false);
+        List<GroupStudyListResponse> list = List.of(groupStudyListResponse1, groupStudyListResponse2);
+
+        doReturn(list)
+                .when(groupStudyMainPageListService).getRecommendGroupStudyList(any());
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get(url)
+                .header("Authorization", "Bearer accessToken")
+        ).andDo(print());
+
+        //then
+        resultActions.andExpect(status().isOk())
+                .andDo(document("group-study/getBestGroupStudyList/success",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("accessToken")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].title").description("그룹스터디 제목"),
+                                fieldWithPath("[].tags[]").description("그룹스터디 태그들"),
+                                fieldWithPath("[].viewerCount").description("그룹스터디 시청자수"),
+                                fieldWithPath("[].liked").description("현재 사용자가 좋아요를 눌렀는지")
+                        )
+                ));
+    }
+
     @DisplayName("MBTI 에 해당하는 새로생긴 그룹방 리스트를 리턴한다.")
     @Test
     void getRecentMbtiGroupStudyList() throws Exception {

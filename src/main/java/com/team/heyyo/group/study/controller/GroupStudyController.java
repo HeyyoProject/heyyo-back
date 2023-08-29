@@ -35,6 +35,13 @@ public class GroupStudyController {
         return ResponseEntity.ok(bestGroupListFromToday);
     }
 
+    @GetMapping("/recommend")
+    public ResponseEntity<List<GroupStudyListResponse>> getRecommendStudyList(@AccessToken String accessToken) {
+        List<GroupStudyListResponse> recommendGroupStudyList = groupStudyMainPageListService.getRecommendGroupStudyList(accessToken);
+
+        return ResponseEntity.ok(recommendGroupStudyList);
+    }
+
     @GetMapping("/detail/recent/{mbti}")
     public ResponseEntity<List<GroupStudyListResponse>> getRecentMbtiGroupStudyList(
             @AccessToken String accessToken,
