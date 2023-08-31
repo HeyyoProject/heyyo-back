@@ -12,6 +12,14 @@ link:index.html[메인 문서]
 
 == 그룹 공부방0 페이지 API
 
+===== orderBy에 담아서 보내줘야할 값 ( 기본: POPULAR )
+POPULAR("인기순")
+
+VIEWS("조회순")
+
+RECENT("최신순")
+
+
 === 최근에 생긴 그룹공부방 리스트 가져오기 (12개)
 
 ==== Request

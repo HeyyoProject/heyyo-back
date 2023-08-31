@@ -1,0 +1,92 @@
+# API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 메인 문서
+
+link:index.html[메인 문서]
+
+=== 페이지 자료실목록 페이지
+
+
+=== 인기 순으로 12개의 자료를 가져온다
+
+==== Request
+
+include::{snippets}/group/reference/best/success/http-request.adoc[]
+include::{snippets}/group/reference/best/success/request-headers.adoc[]
+
+==== Response
+
+include::{snippets}/group/reference/best/success/http-response.adoc[]
+include::{snippets}/group/reference/best/success/response-fields.adoc[]
+
+
+=== 6개의 자료를 가져온다
+
+==== Request
+
+include::{snippets}/group/reference/list/success/http-request.adoc[]
+Request Headers
+include::{snippets}/group/reference/list/success/request-headers.adoc[]
+Query Parameters
+include::{snippets}/group/reference/list/success/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/group/reference/list/success/http-response.adoc[]
+include::{snippets}/group/reference/list/success/response-fields.adoc[]
+
+
+=== 조회순으로 6개의 자료를 가져온다
+
+==== Request
+
+include::{snippets}/group/reference/list/views/success/http-request.adoc[]
+Request Headers
+include::{snippets}/group/reference/list/views/success/request-headers.adoc[]
+Query Parameters
+include::{snippets}/group/reference/list/views/success/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/group/reference/list/views/success/http-response.adoc[]
+include::{snippets}/group/reference/list/views/success/response-fields.adoc[]
+
+
+=== 최신순으로 12개의 자료를 가져온다
+
+==== Request
+
+include::{snippets}/group/reference/list/recent/success/http-request.adoc[]
+Request Headers
+include::{snippets}/group/reference/list/recent/success/request-headers.adoc[]
+Query Parameters
+include::{snippets}/group/reference/list/recent/success/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/group/reference/list/recent/success/http-response.adoc[]
+include::{snippets}/group/reference/list/recent/success/response-fields.adoc[]
+
+
+=== 인기순으로 12개의 자료를 가져온다
+
+==== Request
+
+include::{snippets}/group/reference/list/recent/success/http-request.adoc[]
+Request Headers
+include::{snippets}/group/reference/list/recent/success/request-headers.adoc[]
+Query Parameters
+include::{snippets}/group/reference/list/recent/success/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/group/reference/list/recent/success/http-response.adoc[]
+include::{snippets}/group/reference/list/recent/success/response-fields.adoc[]
+
+
+
