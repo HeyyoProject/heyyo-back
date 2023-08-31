@@ -2,6 +2,7 @@ package com.team.heyyo.group.reference.data.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,9 @@ public class ReferenceScrap {
 
     private Long referenceId;
 
+    @Builder
+    public ReferenceScrap(Long userId, Long referenceId) {
+        this.userId = userId;
+        this.referenceId = referenceId;
+    }
 }

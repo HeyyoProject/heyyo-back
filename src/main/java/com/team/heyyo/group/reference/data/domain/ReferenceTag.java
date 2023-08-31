@@ -14,5 +14,7 @@ public class ReferenceTag {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long referenceTagId;
 
+    private Long referenceId;
+
     private String tagData;
 }
