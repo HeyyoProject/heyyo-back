@@ -5,7 +5,9 @@ import com.team.heyyo.group.study.dto.GroupStudyListResponse;
 import com.team.heyyo.group.study.service.GroupStudyDetailPageListService;
 import com.team.heyyo.group.study.service.GroupStudyMainPageListService;
 import com.team.heyyo.user.constant.Mbti;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,20 +25,28 @@ public class GroupStudyController {
     private final GroupStudyDetailPageListService groupStudyDetailPageListService;
 
     @GetMapping("/recent")
-    public ResponseEntity<List<GroupStudyListResponse>> getRecentGroupStudyList(@AccessToken String accessToken) {
+    public ResponseEntity<List<GroupStudyListResponse>> getRecentGroupStudyList(HttpServletRequest request) {
+
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
 
         List<GroupStudyListResponse> recentGroupStudyList = groupStudyMainPageListService.getRecentGroupStudyList(accessToken);
         return ResponseEntity.ok(recentGroupStudyList);
     }
 
     @GetMapping("/best")
-    public ResponseEntity<List<GroupStudyListResponse>> getBestGroupStudyList(@AccessToken String accessToken) {
+    public ResponseEntity<List<GroupStudyListResponse>> getBestGroupStudyList(HttpServletRequest request) {
+
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+
         List<GroupStudyListResponse> bestGroupListFromToday = groupStudyMainPageListService.getBestGroupStudyListFromToday(accessToken);
         return ResponseEntity.ok(bestGroupListFromToday);
     }
 
     @GetMapping("/recommend")
-    public ResponseEntity<List<GroupStudyListResponse>> getRecommendStudyList(@AccessToken String accessToken) {
+    public ResponseEntity<List<GroupStudyListResponse>> getRecommendStudyList(HttpServletRequest request) {
+
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+
         List<GroupStudyListResponse> recommendGroupStudyList = groupStudyMainPageListService.getRecommendGroupStudyList(accessToken);
 
         return ResponseEntity.ok(recommendGroupStudyList);
@@ -44,26 +54,32 @@ public class GroupStudyController {
 
     @GetMapping("/detail/recent/{mbti}")
     public ResponseEntity<List<GroupStudyListResponse>> getRecentMbtiGroupStudyList(
-            @AccessToken String accessToken,
-            @PathVariable Mbti mbti
+            @PathVariable Mbti mbti,
+            HttpServletRequest request
     ) {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+
         List<GroupStudyListResponse> groupStudyDetailList = groupStudyDetailPageListService.getRecentGroupStudyDetailList(accessToken, mbti);
         return ResponseEntity.ok(groupStudyDetailList);
     }
 
     @GetMapping("/detail/best/{mbti}")
     public ResponseEntity<List<GroupStudyListResponse>> getBestMbtiGroupStudyList(
-            @AccessToken String accessToken,
-            @PathVariable Mbti mbti
+            @PathVariable Mbti mbti,
+            HttpServletRequest request
     ) {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+
         List<GroupStudyListResponse> groupStudyDetailList = groupStudyDetailPageListService.getMostLikeGroupStudyDetailList(accessToken, mbti);
         return ResponseEntity.ok(groupStudyDetailList);
     }
 
     @GetMapping("/detail/opposite")
     public ResponseEntity<List<GroupStudyListResponse>> getBestMbtiGroupStudyList(
-            @AccessToken String accessToken
+            HttpServletRequest request
     ) {
+        String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+
         List<GroupStudyListResponse> groupStudyDetailList = groupStudyDetailPageListService.getOppositeUserMbtiGroupStudyList(accessToken);
         return ResponseEntity.ok(groupStudyDetailList);
     }
