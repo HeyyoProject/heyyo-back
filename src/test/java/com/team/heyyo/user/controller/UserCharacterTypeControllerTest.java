@@ -1,7 +1,7 @@
 package com.team.heyyo.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team.heyyo.user.constant.UserCharacterType;
+import com.team.heyyo.user.constant.Mbti;
 import com.team.heyyo.user.dto.UserBaseResponse;
 import com.team.heyyo.user.dto.UserTypeRequest;
 import com.team.heyyo.user.service.UserCharacterTypeService;
@@ -74,7 +74,7 @@ class UserCharacterTypeControllerTest {
     //given
     final String url = USER_API + "/character-types";
 
-    UserTypeRequest userTypeRequest = UserTypeRequest.of(UserCharacterType.고독);
+    UserTypeRequest userTypeRequest = UserTypeRequest.of(Mbti.Focus);
     String content = objectMapper.writeValueAsString(userTypeRequest);
 
     doReturn(true)
@@ -94,7 +94,7 @@ class UserCharacterTypeControllerTest {
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 requestFields(
-                    fieldWithPath("userCharacterType").description("유저 캐릭터 타입")
+                    fieldWithPath("mbti").description("유저 캐릭터 타입")
                 ),
                 HeaderDocumentation.requestHeaders(
                     headerWithName("Authorization").description("accessToken")
@@ -120,7 +120,7 @@ class UserCharacterTypeControllerTest {
     //given
     final String url = USER_API + "/character-types";
 
-    UserTypeRequest userTypeRequest = UserTypeRequest.of(UserCharacterType.고독);
+    UserTypeRequest userTypeRequest = UserTypeRequest.of(Mbti.Focus);
     String content = objectMapper.writeValueAsString(userTypeRequest);
 
     doReturn(false)
@@ -141,7 +141,7 @@ class UserCharacterTypeControllerTest {
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 requestFields(
-                    fieldWithPath("userCharacterType").description("유저 캐릭터 타입")
+                    fieldWithPath("mbti").description("유저 캐릭터 타입")
                 ),
                 HeaderDocumentation.requestHeaders(
                     headerWithName("Authorization").description("accessToken")

@@ -1,11 +1,6 @@
 package com.team.heyyo.friend.dto;
 
 import com.team.heyyo.user.constant.Mbti;
-import com.team.heyyo.user.constant.UserCharacterType;
-import com.team.heyyo.user.constant.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +29,5 @@ public class UserResponse {
     private Date birth;
 
     private String nickname;
-
-    private UserCharacterType characterType;
 
 }

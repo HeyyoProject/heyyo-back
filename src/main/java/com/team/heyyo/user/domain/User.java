@@ -1,7 +1,6 @@
 package com.team.heyyo.user.domain;
 
 import com.team.heyyo.user.constant.Mbti;
-import com.team.heyyo.user.constant.UserCharacterType;
 import com.team.heyyo.user.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -50,9 +49,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Enumerated(EnumType.STRING)
-    private UserCharacterType characterType;
-
     @Builder
     public User(String email, String nickname, String password, String name, String phone, UserRole role, Mbti mbti) {
         this.email = email;
@@ -61,6 +57,10 @@ public class User implements UserDetails {
         this.name = name;
         this.phone = phone;
         this.role = role;
+        this.mbtiType = mbti;
+    }
+
+    public void updateCharacterType(Mbti mbti) {
         this.mbtiType = mbti;
     }
 
@@ -103,4 +103,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

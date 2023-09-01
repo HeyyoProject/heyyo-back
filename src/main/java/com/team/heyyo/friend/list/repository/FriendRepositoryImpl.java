@@ -21,7 +21,7 @@ public class FriendRepositoryImpl implements CustomFriendRepository {
     public List<UserResponse> findFriendByUserId(long userId) {
         return jpaQueryFactory.select(Projections.constructor(UserResponse.class,
                         user.userId, user.email , user.name , user.password , user.phone ,
-                        user.mbtiType , user.birth , user.nickname , user.characterType))
+                        user.mbtiType , user.birth , user.nickname))
                 .from(user)
                 .where(user.userId.eqAny(
                         JPAExpressions.select(friend.toUserId)
