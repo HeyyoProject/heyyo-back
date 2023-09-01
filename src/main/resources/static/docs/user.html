@@ -601,8 +601,8 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Set-Cookie: refresh_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YW4yZGFhYUBnbWFpbC5jb20iLCJpYXQiOjE2OTM1MDg4MDQsImV4cCI6MTY5NDcxODQwNCwic3ViIjoiZW1haWwiLCJpZCI6NX0.a7VlzDQW_CUb0V46c20k5XCAyFMm8EqxdwoROfUz2Hc; Path=/; Max-Age=1209600; Expires=Thu, 14 Sep 2023 19:06:44 GMT
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YW4yZGFhYUBnbWFpbC5jb20iLCJpYXQiOjE2OTM1MDg4MDQsImV4cCI6MTY5MzUxMDYwNCwic3ViIjoiZW1haWwiLCJpZCI6NX0.sUFOG0ZYjqckJKl4l7oyDcsv7SLAhd55ucFeHUjf7yM
+Set-Cookie: refresh_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YW4yZGFhYUBnbWFpbC5jb20iLCJpYXQiOjE2OTM1NTcxMzIsImV4cCI6MTY5NDc2NjczMiwic3ViIjoiZW1haWwiLCJpZCI6NX0.zFas8NC815pi-wZ1Y05wkmaVGkdGmNdjlBhtl4PfCBo; Path=/; Max-Age=1209600; Expires=Fri, 15 Sep 2023 08:32:12 GMT
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YW4yZGFhYUBnbWFpbC5jb20iLCJpYXQiOjE2OTM1NTcxMzIsImV4cCI6MTY5MzU1ODkzMiwic3ViIjoiZW1haWwiLCJpZCI6NX0.PlhK4dFotYRFE9CB_TY9j0LlmQ--Jx1ZgoND-P810s0
 Content-Type: application/json
 Content-Length: 53
 
@@ -1199,7 +1199,7 @@ Content-Length: 165
 
 {
   "requestId" : "requestId",
-  "requestTime" : "2023-09-01T04:06:45.619643",
+  "requestTime" : "2023-09-01T17:32:13.146744",
   "statusCode" : "202",
   "statusName" : "success",
   "certificationNumber" : 123123
@@ -1314,14 +1314,14 @@ Content-Length: 124
 <h4 id="_request_14">Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/users/character-types?_csrf=-7fO8voM9uQYuUkNXwHvVVXB_B_GSyUyM2k2DyqNHq9Yt1HVn9P2x8w9xoI1gHk7bizbYTaj0Sb3eRUfC18EP0u0fJttgmPt HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/users/character-types?_csrf=stl5a4oxOlcS79xzvwUa0IaMVEDUIB8oTfz66tn6X6M--ddTirtPXLsBXm4_iuRB3igu6ODoeSK2RCsFKZ2bjurKZsVcneNi HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer accessToken
-Content-Length: 36
+Content-Length: 22
 Host: localhost:8080
 
 {
-  "userCharacterType" : "고독"
+  "mbti" : "Focus"
 }</code></pre>
 </div>
 </div>
@@ -1343,7 +1343,7 @@ Host: localhost:8080
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userCharacterType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mbti</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">유저 캐릭터 타입</p></td>
 </tr>
@@ -1429,14 +1429,14 @@ Content-Length: 63
 <h4 id="_request_15">Request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/users/character-types?_csrf=a5k_iCl_ymnehBidzyETxMTmuCqNfrQqr7uDtQmV15MTY7DEDa1a6RlH-Qvzty-p_gwn8fODlRO-StAHyd2202ijtPBxW4ag HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /api/users/character-types?_csrf=KqyAPHJzORAivYjLTDo-V_Ur64vVvAhKkfAZN-w097pFiC5hH8q3ChEQXSIPhLz5LRcKZsdKxrLs3zhnosh6AYoHwY0juUoD HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer accessToken
-Content-Length: 36
+Content-Length: 22
 Host: localhost:8080
 
 {
-  "userCharacterType" : "고독"
+  "mbti" : "Focus"
 }</code></pre>
 </div>
 </div>

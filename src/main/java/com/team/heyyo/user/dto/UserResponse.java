@@ -2,12 +2,7 @@ package com.team.heyyo.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team.heyyo.user.constant.Mbti;
-import com.team.heyyo.user.constant.UserCharacterType;
-import com.team.heyyo.user.constant.UserRole;
 import com.team.heyyo.user.domain.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +25,6 @@ public class UserResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-DD", timezone = "Asia/Seoul")
     private Date birth;
     private Boolean isMarketingAgree;
-    private UserCharacterType characterType;
 
     public static UserResponse createUserResponse(User user) {
         return UserResponse.builder()
@@ -44,7 +38,6 @@ public class UserResponse {
                 .mbtiType(user.getMbtiType())
                 .birth(user.getBirth())
                 .isMarketingAgree(user.getIsMarketingAgree())
-                .characterType(user.getCharacterType())
                 .build();
     }
 }

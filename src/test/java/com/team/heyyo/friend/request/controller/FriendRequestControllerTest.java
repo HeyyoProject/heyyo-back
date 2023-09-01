@@ -8,7 +8,6 @@ import com.team.heyyo.friend.exception.FriendException;
 import com.team.heyyo.friend.request.service.FriendRequestService;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import com.team.heyyo.user.constant.Mbti;
-import com.team.heyyo.user.constant.UserCharacterType;
 import com.team.heyyo.util.GsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -168,7 +167,6 @@ public class FriendRequestControllerTest {
                                 fieldWithPath("[].userId").description("대상 유저의 ID"),
                                 fieldWithPath("[].birth").description("생일"),
                                 fieldWithPath("[].phone").description("핸드폰 번호"),
-                                fieldWithPath("[].characterType").description("캐릭터 타입"),
                                 fieldWithPath("[].email").description("email"),
                                 fieldWithPath("[].mbtiType").description("MBTI 타입"),
                                 fieldWithPath("[].name").description("이름"),
@@ -246,7 +244,7 @@ public class FriendRequestControllerTest {
                 .userId(10L)
                 .birth(new Date())
                 .phone("0100000000")
-                .characterType(UserCharacterType.고독)
+                .mbtiType(Mbti.Crowded)
                 .email("email")
                 .mbtiType(Mbti.Focus)
                 .name("name")

@@ -382,10 +382,9 @@ public class UserPreferenceControllerTest {
                                         fieldWithPath("name").description("사용자 name") ,
                                         fieldWithPath("password").description("사용자 password") ,
                                         fieldWithPath("phone").description("사용자 phone") ,
-                                        fieldWithPath("mbtiType").description("MBTI 타입") ,
                                         fieldWithPath("birth").description("출생일"),
-                                        fieldWithPath("isMarketingAgree").description("마케팅 동의 여부"),
-                                        fieldWithPath("characterType").description("캐릭터 타입")
+                                        fieldWithPath("mbtiType").description("MBTI 타입"),
+                                        fieldWithPath("isMarketingAgree").description("마케팅 동의 여부")
                                 )
                         )
                 );

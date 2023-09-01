@@ -1,12 +1,11 @@
 package com.team.heyyo.friend.list.controller;
 
 import com.google.gson.Gson;
-import com.team.heyyo.friend.dto.UserResponse;
 import com.team.heyyo.friend.dto.FriendRequestDto;
+import com.team.heyyo.friend.dto.UserResponse;
 import com.team.heyyo.friend.list.service.FriendService;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import com.team.heyyo.user.constant.Mbti;
-import com.team.heyyo.user.constant.UserCharacterType;
 import com.team.heyyo.util.GsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,9 +41,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureRestDocs
@@ -167,7 +164,6 @@ public class FriendControllerTest {
                                 fieldWithPath("[].userId").description("대상 유저의 ID"),
                                 fieldWithPath("[].birth").description("생일"),
                                 fieldWithPath("[]phone").description("핸드폰 번호"),
-                                fieldWithPath("[].characterType").description("캐릭터 타입"),
                                 fieldWithPath("[].email").description("email"),
                                 fieldWithPath("[].mbtiType").description("MBTI 타입"),
                                 fieldWithPath("[].name").description("이름"),
@@ -183,7 +179,7 @@ public class FriendControllerTest {
                 .userId(10L)
                 .birth(new Date())
                 .phone("0100000000")
-                .characterType(UserCharacterType.고독)
+                .mbtiType(Mbti.Crowded)
                 .email("email")
                 .mbtiType(Mbti.Focus)
                 .name("name")

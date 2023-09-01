@@ -1,12 +1,11 @@
 package com.team.heyyo.user.dto;
 
-import com.team.heyyo.user.constant.UserCharacterType;
-import jakarta.validation.constraints.NotNull;
+import com.team.heyyo.user.constant.Mbti;
 
 public record UserTypeRequest(
-    @NotNull UserCharacterType userCharacterType
+        Mbti mbti
 ) {
-  public static UserTypeRequest of(UserCharacterType userCharacterType) {
-    return new UserTypeRequest(userCharacterType);
+  public static UserTypeRequest of(Mbti mbti) {
+    return new UserTypeRequest(mbti);
   }
 }

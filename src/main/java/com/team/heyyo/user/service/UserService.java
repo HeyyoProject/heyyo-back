@@ -3,6 +3,7 @@ package com.team.heyyo.user.service;
 import com.team.heyyo.auth.jwt.constant.JwtTokenConstant;
 import com.team.heyyo.auth.jwt.support.TokenProvider;
 import com.team.heyyo.todolist.dto.TodoListMessageResponse;
+import com.team.heyyo.user.constant.Mbti;
 import com.team.heyyo.user.constant.UserResponseCode;
 import com.team.heyyo.user.constant.UserRole;
 import com.team.heyyo.user.domain.User;
@@ -41,6 +42,7 @@ public class UserService {
                 .email(request.getEmail())
                 .phone(request.getPhoneNumber())
                 .role(UserRole.USER)
+                .mbti(Mbti.Communication)
                 .build()
     );
     return true;

@@ -1,6 +1,6 @@
 package com.team.heyyo.user.repository;
 
-import com.team.heyyo.user.constant.UserCharacterType;
+import com.team.heyyo.user.constant.Mbti;
 
 public interface UserRepositoryCustom {
 
@@ -9,6 +9,4 @@ public interface UserRepositoryCustom {
   Long updatePasswordWithId(String password, Long userId);
 
   Long updateNickNameWithId(String nickname, Long userId);
-
-  Long updateCharacterTypeWithUserId(UserCharacterType userCharacterType,Long userId);
 }
