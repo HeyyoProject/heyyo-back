@@ -1,5 +1,6 @@
 package com.team.heyyo.group.study.domain;
 
+import com.team.heyyo.user.constant.Mbti;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,14 +28,18 @@ public class GroupStudy {
 
     private String session;
 
+    @Enumerated(EnumType.STRING)
+    private Mbti mbti;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
-    public GroupStudy(Long userId, String title, String description, String session) {
+    public GroupStudy(Long userId, String title, String description, String session, Mbti mbti) {
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.session = session;
+        this.mbti = mbti;
     }
 }

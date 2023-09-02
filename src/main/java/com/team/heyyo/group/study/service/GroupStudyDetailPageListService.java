@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+// FIXME 그룹공부방 당 좋아요 수 로직 추가 핋요
 @RequiredArgsConstructor
 @Service
 public class GroupStudyDetailPageListService {
@@ -28,7 +30,7 @@ public class GroupStudyDetailPageListService {
         Long userId = tokenProvider.getUserId(accessToken);
 
         List<GroupStudyListResponse> groupStudyListResponseList = new ArrayList<>();
-        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(userId, mbti, 6);
+        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(mbti, 6);
 
         return getGroupStudyListResponses(randomNumber, userId, groupStudyListResponseList, groupStudies);
     }
@@ -66,7 +68,7 @@ public class GroupStudyDetailPageListService {
 
     private static void addGroupStudyResponseToGroupStudyResponseList(int randomNumber, List<GroupStudyListResponse> groupStudyListResponseList, GroupStudy groupStudy, boolean isUserLikedThisGroupStudy, List<String> groupStudyTagList) {
         groupStudyListResponseList
-                .add(GroupStudyListResponse.of(groupStudy.getTitle(), groupStudyTagList, randomNumber, isUserLikedThisGroupStudy));
+            .add(GroupStudyListResponse.of(groupStudy.getTitle(), groupStudyTagList, randomNumber, isUserLikedThisGroupStudy));
     }
 
 
