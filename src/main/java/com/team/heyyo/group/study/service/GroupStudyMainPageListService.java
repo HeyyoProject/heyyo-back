@@ -35,12 +35,11 @@ public class GroupStudyMainPageListService {
         List<GroupStudyListResponse> groupStudyListResponseList = new ArrayList<>();
 
         List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudies();
-        for (GroupStudy groupStudy : groupStudies) {
-            boolean isUserLikedThisGroupStudy = isUserLikedThisGroupStudy(userId, groupStudy);
 
+        for (GroupStudy groupStudy : groupStudies) {
             List<String> groupStudyTagList = getGroupStudyTagList(groupStudy);
             groupStudyListResponseList
-                    .add(GroupStudyListResponse.of(groupStudy.getTitle(), groupStudyTagList, randomNumber, isUserLikedThisGroupStudy));
+                    .add(GroupStudyListResponse.of(groupStudy.getTitle(), groupStudyTagList, randomNumber));
         }
         return groupStudyListResponseList;
     }
@@ -69,7 +68,7 @@ public class GroupStudyMainPageListService {
                 .orElseThrow(() -> new EntityNotFoundException("해당 유저를 찾을 수 없습니다."));
 
         List<GroupStudyListResponse> groupStudyListResponseList = new ArrayList<>();
-        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(userId, user.getMbtiType(), 20);
+        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(user.getMbtiType(), 20);
         groupStudies = getRandomGroupStudies(groupStudies, 8);
 
         for (GroupStudy groupStudy : groupStudies) {

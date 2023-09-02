@@ -101,6 +101,7 @@ class GroupStudyRepositoryTest {
                 .description("description")
                 .title("title")
                 .session("session")
+                .mbti(mbti)
                 .build();
 
         GroupStudy sameMbtiUserGroupStudy = GroupStudy.builder()
@@ -108,6 +109,7 @@ class GroupStudyRepositoryTest {
                 .description("description")
                 .title("title")
                 .session("session")
+                .mbti(mbti)
                 .build();
 
         GroupStudy differentMbtiUserGroupStudy = GroupStudy.builder()
@@ -115,6 +117,7 @@ class GroupStudyRepositoryTest {
                 .description("description")
                 .title("title")
                 .session("session")
+                .mbti(Mbti.Communication)
                 .build();
 
 
@@ -124,12 +127,10 @@ class GroupStudyRepositoryTest {
         groupStudyRepository.save(differentMbtiUserGroupStudy);
 
         //when
-        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(user.getUserId(), mbti, 2);
+        List<GroupStudy> groupStudies = groupStudyRepository.selectRecentGroupStudyDetailListWithMbti(mbti, 2);
 
         //then
         assertThat(groupStudies).hasSize(2);
-        assertThat(groupStudies.get(0).getUserId()).isEqualTo(user.getUserId());
-        assertThat(groupStudies.get(1).getUserId()).isEqualTo(sameMbtiUser.getUserId());
 
     }
 

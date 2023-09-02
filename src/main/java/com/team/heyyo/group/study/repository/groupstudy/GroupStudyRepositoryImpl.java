@@ -47,14 +47,9 @@ public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom {
     }
 
     @Override
-    public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit) {
+    public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Mbti mbti, int limit) {
         return queryFactory.selectFrom(groupStudy)
-                .where(
-                        select(user.mbtiType)
-                                .from(user)
-                                .where(user.userId.eq(groupStudy.userId))
-                                .eq(mbti)
-                )
+                .where(groupStudy.mbti.eq(mbti))
                 .orderBy(groupStudy.createdAt.desc())
                 .limit(limit)
                 .fetch();

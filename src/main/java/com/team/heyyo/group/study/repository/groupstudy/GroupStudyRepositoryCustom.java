@@ -9,7 +9,7 @@ public interface GroupStudyRepositoryCustom {
     public List<GroupStudy> selectRecentGroupStudies();
 
     public List<GroupStudy> findGroupStudiesOrderedByMostLikesFromToday();
-    public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit);
+    public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Mbti mbti, int limit);
 
     List<GroupStudy> selectMostLikeGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit);
 
