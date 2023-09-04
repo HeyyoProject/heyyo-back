@@ -1,0 +1,94 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:index.html[메인 문서]
+
+=== 고객센터 게시물 저장
+
+==== Request
+
+include::{snippets}/support/saveSupport/http-request.adoc[]
+include::{snippets}/support/saveSupport/request-headers.adoc[]
+include::{snippets}/support/saveSupport/request-fields.adoc[]
+
+==== Response
+
+include::{snippets}/support/saveSupport/http-response.adoc[]
+
+=== 고객센터 커멘트 등록 및 해결됨 변경
+
+include::{snippets}/support/updateCommentAndIsSolved/http-request.adoc[]
+include::{snippets}/support/updateCommentAndIsSolved/request-fields.adoc[]
+include::{snippets}/support/updateCommentAndIsSolved/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/support/updateCommentAndIsSolved/http-response.adoc[]
+
+=== Type 으로 고객센터 데이터 가져오기
+
+include::{snippets}/support/searchPostByType/http-request.adoc[]
+include::{snippets}/support/searchPostByType/request-fields.adoc[]
+
+ANNOUNCEMENT -> 공지 사항 , FREQUENTLY_ASKED_QUESTIONS -> 자주 묻는 질문
+
+==== Response
+
+include::{snippets}/support/searchPostByType/http-response.adoc[]
+include::{snippets}/support/searchPostByType/response-fields.adoc[]
+
+=== Type 으로 고객센터 총 데이터 갯수 가져오기
+
+include::{snippets}/support/searchPostCountByType/http-request.adoc[]
+include::{snippets}/support/searchPostCountByType/request-fields.adoc[]
+
+ANNOUNCEMENT -> 공지 사항 , FREQUENTLY_ASKED_QUESTIONS -> 자주 묻는 질문
+
+==== Response
+
+include::{snippets}/support/searchPostCountByType/http-response.adoc[]
+
+axios 기준 response.data 를 통해서 값을 바로 추출할 수 있습니다.
+
+=== Type 과 검색어로 고객센터 모든 데이터 가져오기
+
+include::{snippets}/support/searchPostByTypeAndSearch/http-request.adoc[]
+include::{snippets}/support/searchPostByTypeAndSearch/request-fields.adoc[]
+include::{snippets}/support/searchPostByTypeAndSearch/query-parameters.adoc[]
+
+ANNOUNCEMENT -> 공지 사항 , FREQUENTLY_ASKED_QUESTIONS -> 자주 묻는 질문
+
+==== Response
+
+include::{snippets}/support/searchPostByTypeAndSearch/http-response.adoc[]
+include::{snippets}/support/searchPostByTypeAndSearch/response-fields.adoc[]
+
+=== Type 과 검색어로 고객센터 데이터 갯수 가져오기
+
+include::{snippets}/support/searchPostCountByTypeAndSearch/http-request.adoc[]
+include::{snippets}/support/searchPostCountByTypeAndSearch/request-fields.adoc[]
+include::{snippets}/support/searchPostCountByTypeAndSearch/query-parameters.adoc[]
+
+
+ANNOUNCEMENT -> 공지 사항 , FREQUENTLY_ASKED_QUESTIONS -> 자주 묻는 질문
+
+==== Response
+
+include::{snippets}/support/searchPostCountByTypeAndSearch/http-response.adoc[]
+
+axios 기준 response.data 를 통해서 값을 바로 추출할 수 있습니다.
+
+=== ID 값을 이용해 고객센터 데이터 가져오기
+
+include::{snippets}/support/findPostById/http-request.adoc[]
+include::{snippets}/support/findPostById/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/support/findPostById/http-response.adoc[]
+include::{snippets}/support/findPostById/response-fields.adoc[]
