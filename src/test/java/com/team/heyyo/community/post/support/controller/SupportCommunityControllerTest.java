@@ -41,6 +41,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -89,6 +91,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isCreated())
                 .andDo(document("support/saveSupport",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 requestHeaders(
                                         headerWithName("Authorization").description("accessToken")
                                 ),
@@ -119,6 +123,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/updateCommentAndIsSolved",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 pathParameters(
                                         parameterWithName("postId").description("포스팅 아이디")
                                 ),
@@ -136,7 +142,7 @@ public class SupportCommunityControllerTest {
         String api = "/api/support/{postId}";
         CommentRequest commentRequest = CommentRequest.builder().message("message").build();
 
-        doThrow(new SupportCommunityException("해당 게시물을 찾을 수 없습니다.")).when(supportCommunityService).updateCommentAndIsSolved(anyLong() , any());
+        doThrow(new SupportCommunityException("해당 게시물을 찾을 수 없습니다.")).when(supportCommunityService).updateCommentAndIsSolved(anyLong(), any());
 
         // when
         ResultActions resultActions = mockMvc.perform(patch(api, "30")
@@ -146,6 +152,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest())
                 .andDo(document("support/dummy",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 pathParameters(
                                         parameterWithName("postId").description("포스팅 아이디")
                                 ),
@@ -162,7 +170,7 @@ public class SupportCommunityControllerTest {
         // given
         String api = "/api/support";
         SupportCommunityRequest request = SupportCommunityRequest.builder().supportCommunityType(SupportCommunityType.ANNOUNCEMENT).build();
-        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityType(any() , any());
+        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityType(any(), any());
 
         // when
         ResultActions resultActions = mockMvc.perform(get(api)
@@ -172,6 +180,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/searchPostByType",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("supportCommunityType").description("게시글 타입 (FREQUENTLY_ASKED_QUESTIONS , ANNOUNCEMENT)")
                                 ),
@@ -208,6 +218,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/searchPostCountByType",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 requestFields(
                                         fieldWithPath("supportCommunityType").description("게시글 타입 (FREQUENTLY_ASKED_QUESTIONS , ANNOUNCEMENT)")
                                 )
@@ -221,7 +233,7 @@ public class SupportCommunityControllerTest {
         // given
         String api = "/api/support/search?search=data";
         SupportCommunityRequest request = SupportCommunityRequest.builder().supportCommunityType(SupportCommunityType.ANNOUNCEMENT).build();
-        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityTypeAndSearch(any() , any(), any());
+        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityTypeAndSearch(any(), any(), any());
 
         // when
         ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get(api)
@@ -231,6 +243,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/searchPostByTypeAndSearch",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 queryParameters(
                                         parameterWithName("search").description("검색어")
                                 ),
@@ -270,6 +284,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/searchPostCountByTypeAndSearch",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 queryParameters(
                                         parameterWithName("search").description("검색어")
                                 ),
@@ -297,6 +313,8 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isOk())
                 .andDo(document("support/findPostById",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 pathParameters(
                                         parameterWithName("postId").description("게시물 이름")
                                 ),
@@ -331,9 +349,11 @@ public class SupportCommunityControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest())
                 .andDo(document("support/dummy",
-                        pathParameters(
-                                parameterWithName("postId").description("포스팅 아이디")
-                        )
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("postId").description("포스팅 아이디")
+                                )
                         )
                 );
     }
