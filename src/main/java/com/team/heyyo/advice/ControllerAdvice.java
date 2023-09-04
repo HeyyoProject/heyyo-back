@@ -2,6 +2,7 @@ package com.team.heyyo.advice;
 
 import com.team.heyyo.auth.exception.AuthorizationException;
 import com.team.heyyo.auth.jwt.exception.TokenForgeryException;
+import com.team.heyyo.community.post.support.community.exception.SupportCommunityException;
 import com.team.heyyo.friend.exception.FriendException;
 import com.team.heyyo.todolist.exception.TodoListException;
 import com.team.heyyo.user.exception.UserNotFoundException;
@@ -25,7 +26,7 @@ public class ControllerAdvice {
         return ResponseEntity.badRequest().body(ErrorResponse.of(errorMessage));
     }
 
-    @ExceptionHandler({TodoListException.class , FriendException.class , AccountException.class , UserNotFoundException.class})
+    @ExceptionHandler({SupportCommunityException.class , TodoListException.class , FriendException.class , AccountException.class , UserNotFoundException.class})
     public ResponseEntity<ErrorResponse> handleBadRequestException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e.getMessage()));
     }

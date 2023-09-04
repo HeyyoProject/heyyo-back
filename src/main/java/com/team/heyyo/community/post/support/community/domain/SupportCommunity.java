@@ -1,5 +1,6 @@
 package com.team.heyyo.community.post.support.community.domain;
 
+import com.team.heyyo.community.post.support.community.dto.NewSupportCommunityRequest;
 import com.team.heyyo.community.post.support.tag.domain.SupportCommunityTagData;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,7 +29,8 @@ public class SupportCommunity {
 
     private String adminComment;
 
-    private String isSolved;
+    @Builder.Default
+    private String isSolved = "F";
 
     @Builder.Default
     @OneToMany(cascade = {CascadeType.PERSIST , CascadeType.REMOVE }, orphanRemoval = true)
@@ -39,6 +41,20 @@ public class SupportCommunity {
 
     public void addTagData(SupportCommunityTagData tagData) {
         this.tagData.add(tagData);
+    }
+
+    public void updateComment(String message) {
+        this.adminComment = message;
+        isSolved = "T";
+    }
+
+    public static SupportCommunity createSupportCommunity(long userId , NewSupportCommunityRequest request) {
+        return SupportCommunity.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .userId(userId)
+                .supportCommunityType(request.getSupportCommunityType())
+                .build();
     }
 
 }

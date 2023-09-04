@@ -15,4 +15,10 @@ public class SupportCommunityTagData {
     private long supportTagKey;
 
     private String tag;
+
+    public static SupportCommunityTagData buildTagData(String message) {
+        return SupportCommunityTagData.builder()
+                .tag(message)
+                .build();
+    }
 }

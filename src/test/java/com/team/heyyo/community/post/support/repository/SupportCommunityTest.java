@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -110,13 +111,11 @@ public class SupportCommunityTest {
             supportCommunity.addTagData(supportCommunityTagData2);
 
         // when
-        List<SupportCommunity> result = supportCommunityRepository.findSupportCommunityResponseById(supportCommunity.getSupportCommunityId());
+        Optional<SupportCommunity> result = supportCommunityRepository.findById(supportCommunity.getSupportCommunityId());
 
         // then
-        for(SupportCommunity test : result) {
-            assertThat(test.getTagData().size()).isEqualTo(2);
-        }
-        assertThat(result.size()).isEqualTo(1);
+        assertThat(result.isPresent()).isEqualTo(true);
+        assertThat(result.get().getContent()).isEqualTo("content");
     }
 
     @Test

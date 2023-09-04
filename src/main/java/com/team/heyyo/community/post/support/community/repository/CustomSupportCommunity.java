@@ -11,8 +11,6 @@ public interface CustomSupportCommunity {
 
     long findSupportCommunityResponseCountBySupportCommunityType(SupportCommunityType supportCommunityType);
 
-    List<SupportCommunity> findSupportCommunityResponseById(long id);
-
     List<SupportCommunity> findSupportCommunityResponseBySupportCommunityTypeAndSearch(SupportCommunityType supportCommunityType , String search);
 
     long findSupportCommunityResponseCountBySupportCommunityTypeAndSearch(SupportCommunityType supportCommunityType , String search);
