@@ -7,6 +7,7 @@ import com.team.heyyo.community.post.support.community.dto.NewSupportCommunityRe
 import com.team.heyyo.community.post.support.community.dto.SupportCommunityRequest;
 import com.team.heyyo.community.post.support.community.service.SupportCommunityService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,8 @@ public class SupportCommunityController {
     }
 
     @GetMapping
-    public ResponseEntity findSupportCommunityResponseBySupportCommunityType(@RequestBody SupportCommunityRequest supportCommunityRequest) {
-        List<SupportCommunity> result = supportCommunityService.findSupportCommunityResponseBySupportCommunityType(supportCommunityRequest);
+    public ResponseEntity findSupportCommunityResponseBySupportCommunityType(Pageable pageable, @RequestBody SupportCommunityRequest supportCommunityRequest) {
+        List<SupportCommunity> result = supportCommunityService.findSupportCommunityResponseBySupportCommunityType(pageable , supportCommunityRequest);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -50,8 +51,8 @@ public class SupportCommunityController {
 
     @GetMapping("/search")
     public ResponseEntity findSupportCommunityResponseBySupportCommunityTypeAndSearch(
-            @RequestParam String search , @RequestBody SupportCommunityRequest request) {
-        List<SupportCommunity> result = supportCommunityService.findSupportCommunityResponseBySupportCommunityTypeAndSearch(request , search);
+            Pageable pageable, @RequestParam String search , @RequestBody SupportCommunityRequest request) {
+        List<SupportCommunity> result = supportCommunityService.findSupportCommunityResponseBySupportCommunityTypeAndSearch(pageable , request , search);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -65,7 +66,7 @@ public class SupportCommunityController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity findSupportCommunityResponseById(long postId) {
+    public ResponseEntity findSupportCommunityResponseById(@PathVariable long postId) {
         SupportCommunity result = supportCommunityService.findSupportCommunityResponseById(postId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);

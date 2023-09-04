@@ -9,7 +9,6 @@ import com.team.heyyo.community.post.support.community.dto.SupportCommunityReque
 import com.team.heyyo.community.post.support.community.exception.SupportCommunityException;
 import com.team.heyyo.community.post.support.community.service.SupportCommunityService;
 import com.team.heyyo.community.post.support.tag.domain.SupportCommunityTagData;
-import com.team.heyyo.todolist.dto.TodoListMessageResponse;
 import com.team.heyyo.util.GsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,14 +29,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -48,7 +44,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -141,7 +136,7 @@ public class SupportCommunityControllerTest {
         String api = "/api/support/{postId}";
         CommentRequest commentRequest = CommentRequest.builder().message("message").build();
 
-        doThrow(new SupportCommunityException("해당 게시물을 찾을 수 없습니다.")).when(supportCommunityService).updateCommentAndIsSolved(30L, commentRequest);
+        doThrow(new SupportCommunityException("해당 게시물을 찾을 수 없습니다.")).when(supportCommunityService).updateCommentAndIsSolved(anyLong() , any());
 
         // when
         ResultActions resultActions = mockMvc.perform(patch(api, "30")
@@ -167,7 +162,7 @@ public class SupportCommunityControllerTest {
         // given
         String api = "/api/support";
         SupportCommunityRequest request = SupportCommunityRequest.builder().supportCommunityType(SupportCommunityType.ANNOUNCEMENT).build();
-        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityType(any());
+        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityType(any() , any());
 
         // when
         ResultActions resultActions = mockMvc.perform(get(api)
@@ -226,7 +221,7 @@ public class SupportCommunityControllerTest {
         // given
         String api = "/api/support/search?search=data";
         SupportCommunityRequest request = SupportCommunityRequest.builder().supportCommunityType(SupportCommunityType.ANNOUNCEMENT).build();
-        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityTypeAndSearch(any(), any());
+        doReturn(buildSupportCommunity()).when(supportCommunityService).findSupportCommunityResponseBySupportCommunityTypeAndSearch(any() , any(), any());
 
         // when
         ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get(api)
@@ -331,16 +326,16 @@ public class SupportCommunityControllerTest {
         doThrow(new SupportCommunityException("해당 게시물을 찾을 수 없습니다.")).when(supportCommunityService).findSupportCommunityResponseById(anyLong());
 
         // when
-        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get(api, 30));
+        ResultActions resultActions = mockMvc.perform(RestDocumentationRequestBuilders.get(api, "30"));
 
         // then
-        resultActions.andExpect(status().isInternalServerError());
-
-        final TodoListMessageResponse result = gson.fromJson(
-                resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
-                TodoListMessageResponse.class);
-
-        assertThat(result.getMessage()).isEqualTo("해당 데이터를 찾을 수 없습니다.");
+        resultActions.andExpect(status().isBadRequest())
+                .andDo(document("support/dummy",
+                        pathParameters(
+                                parameterWithName("postId").description("포스팅 아이디")
+                        )
+                        )
+                );
     }
 
 

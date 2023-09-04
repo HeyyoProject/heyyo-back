@@ -8,6 +8,7 @@ import com.team.heyyo.community.post.support.community.dto.SupportCommunityReque
 import com.team.heyyo.community.post.support.community.exception.SupportCommunityException;
 import com.team.heyyo.community.post.support.community.repository.SupportCommunityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,16 +44,16 @@ public class SupportCommunityService {
         supportCommunity.updateComment(commentRequest.getMessage());
     }
 
-    public List<SupportCommunity> findSupportCommunityResponseBySupportCommunityType(SupportCommunityRequest supportCommunityRequest) {
-        return supportCommunityRepository.findSupportCommunityResponseBySupportCommunityType(supportCommunityRequest.getSupportCommunityType());
+    public List<SupportCommunity> findSupportCommunityResponseBySupportCommunityType(Pageable pageable , SupportCommunityRequest supportCommunityRequest) {
+        return supportCommunityRepository.findSupportCommunityResponseBySupportCommunityType(pageable , supportCommunityRequest.getSupportCommunityType());
     }
 
     public long findSupportCommunityResponseCountBySupportCommunityType(SupportCommunityRequest supportCommunityRequest) {
         return supportCommunityRepository.findSupportCommunityResponseCountBySupportCommunityType(supportCommunityRequest.getSupportCommunityType());
     }
 
-    public List<SupportCommunity> findSupportCommunityResponseBySupportCommunityTypeAndSearch(SupportCommunityRequest supportCommunityRequest , String search) {
-        return supportCommunityRepository.findSupportCommunityResponseBySupportCommunityTypeAndSearch(supportCommunityRequest.getSupportCommunityType() , search);
+    public List<SupportCommunity> findSupportCommunityResponseBySupportCommunityTypeAndSearch(Pageable pageable , SupportCommunityRequest supportCommunityRequest , String search) {
+        return supportCommunityRepository.findSupportCommunityResponseBySupportCommunityTypeAndSearch(pageable , supportCommunityRequest.getSupportCommunityType() , search);
     }
 
     public long findSupportCommunityResponseCountBySupportCommunityTypeAndSearch(SupportCommunityRequest supportCommunityRequest , String search) {

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +42,7 @@ public class SupportCommunityTest {
     public void findSupportCommunityByType() {
         // given
         User user = userRepository.save(buildUser());
+        Pageable pageable = Pageable.ofSize(20 );
 
         for(int i = 0; i < 2; i++) {
             SupportCommunity supportCommunity = supportCommunityRepository.save(buildCommunity(user));
@@ -50,7 +53,7 @@ public class SupportCommunityTest {
         }
 
         // when
-        List<SupportCommunity> result = supportCommunityRepository.findSupportCommunityResponseBySupportCommunityType(SupportCommunityType.ANNOUNCEMENT);
+        List<SupportCommunity> result = supportCommunityRepository.findSupportCommunityResponseBySupportCommunityType(pageable , SupportCommunityType.ANNOUNCEMENT);
 
         // then
         for(SupportCommunity test : result) {
@@ -123,6 +126,7 @@ public class SupportCommunityTest {
     public void findSupportCommunityResponseBySupportCommunityTypeAndSearch() {
         // given
         User user = userRepository.save(buildUser());
+        Pageable pageable = Pageable.ofSize(20);
 
         SupportCommunity supportCommunity = supportCommunityRepository.save(buildCommunity(user));
         SupportCommunityTagData supportCommunityTagData = supportCommunityTagDataRepository.save(buildTagData("tag1"));
@@ -131,7 +135,7 @@ public class SupportCommunityTest {
         supportCommunity.addTagData(supportCommunityTagData2);
 
         // when
-        List<SupportCommunity> result = supportCommunityRepository.findSupportCommunityResponseBySupportCommunityTypeAndSearch(SupportCommunityType.ANNOUNCEMENT , "title");
+        List<SupportCommunity> result = supportCommunityRepository.findSupportCommunityResponseBySupportCommunityTypeAndSearch(pageable , SupportCommunityType.ANNOUNCEMENT , "title");
 
         // then
         for(SupportCommunity test : result) {
