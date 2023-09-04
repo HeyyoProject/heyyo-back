@@ -1,20 +1,14 @@
 package com.team.heyyo.community.post.support.community.repository;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.team.heyyo.community.post.support.community.domain.SupportCommunity;
 import com.team.heyyo.community.post.support.community.domain.SupportCommunityType;
-import com.team.heyyo.community.post.support.community.dto.SupportCommunityResponse;
-import com.team.heyyo.community.post.support.tag.domain.QSupportCommunityTagData;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.querydsl.jpa.JPAExpressions.select;
-import static com.team.heyyo.user.domain.QUser.user;
 import static com.team.heyyo.community.post.support.community.domain.QSupportCommunity.supportCommunity;
-import static com.team.heyyo.community.post.support.tag.domain.QSupportCommunityTagData.supportCommunityTagData;
+import static com.team.heyyo.user.domain.QUser.user;
 
 
 @RequiredArgsConstructor
@@ -38,15 +32,6 @@ public class SupportCommunityRepositoryImpl implements CustomSupportCommunity {
                 .innerJoin(user).on(user.userId.eq(supportCommunity.userId))
                 .where(supportCommunity.supportCommunityType.eq(supportCommunityType))
                 .fetchOne();
-    }
-
-    @Override
-    public List<SupportCommunity> findSupportCommunityResponseById(long id) {
-        return jpaQueryFactory.select(supportCommunity)
-                .from(supportCommunity)
-                .innerJoin(user).on(user.userId.eq(supportCommunity.userId))
-                .where(supportCommunity.supportCommunityId.eq(id))
-                .fetch();
     }
 
     @Override
