@@ -27,15 +27,12 @@ public class Chat {
 
     private String sender;
 
-    private String senderImage;
-
     public static Chat createChat(ChatResponse chatResponse , GroupStudy groupStudy) {
         return Chat.builder()
                 .message(chatResponse.getMessage())
                 .sendTime(chatResponse.getSendTime())
                 .groupStudy(groupStudy)
                 .sender(chatResponse.getSender())
-                .senderImage(chatResponse.getSenderImage())
                 .build();
     }
 }
