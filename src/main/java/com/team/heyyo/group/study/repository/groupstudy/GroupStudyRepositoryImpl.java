@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.jpa.JPAExpressions.select;
 import static com.team.heyyo.group.study.domain.QGroupStudy.groupStudy;
@@ -119,6 +120,16 @@ public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom {
                 .limit(limit)
                 .fetch();
 
+    }
+
+    @Override
+    public Optional<GroupStudy> findGroupStudyAndChatById(long id) {
+        GroupStudy result = queryFactory.select(groupStudy).from(groupStudy)
+                .innerJoin(groupStudy.chatRoom).fetchJoin()
+                .where(groupStudy.groupStudyId.eq(id))
+                .fetchOne();
+
+        return Optional.ofNullable(result);
     }
 
     private Mbti getUserMbti(Long userId) {

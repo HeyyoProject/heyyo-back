@@ -4,6 +4,7 @@ import com.team.heyyo.auth.exception.AuthorizationException;
 import com.team.heyyo.auth.jwt.exception.TokenForgeryException;
 import com.team.heyyo.community.post.support.community.exception.SupportCommunityException;
 import com.team.heyyo.friend.exception.FriendException;
+import com.team.heyyo.group.chat.exception.ChatException;
 import com.team.heyyo.todolist.exception.TodoListException;
 import com.team.heyyo.user.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class ControllerAdvice {
         return ResponseEntity.badRequest().body(ErrorResponse.of(errorMessage));
     }
 
-    @ExceptionHandler({SupportCommunityException.class , TodoListException.class , FriendException.class , AccountException.class , UserNotFoundException.class})
+    @ExceptionHandler({SupportCommunityException.class , TodoListException.class , FriendException.class , AccountException.class , UserNotFoundException.class , ChatException.class})
     public ResponseEntity<ErrorResponse> handleBadRequestException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e.getMessage()));
     }

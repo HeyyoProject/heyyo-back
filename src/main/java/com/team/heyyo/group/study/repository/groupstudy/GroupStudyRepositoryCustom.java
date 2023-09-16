@@ -4,15 +4,21 @@ import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.user.constant.Mbti;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GroupStudyRepositoryCustom {
     public List<GroupStudy> selectRecentGroupStudies();
 
+
     public List<GroupStudy> findGroupStudiesOrderedByMostLikesFromToday();
+
     public List<GroupStudy> selectRecentGroupStudyDetailListWithMbti(Mbti mbti, int limit);
 
     List<GroupStudy> selectMostLikeGroupStudyDetailListWithMbti(Long userId, Mbti mbti, int limit);
 
     List<GroupStudy> selectOppositeUserMbtiGroupStudyList(Long userId, int limit);
+
+    Optional<GroupStudy> findGroupStudyAndChatById(long id);
+
 }
 
