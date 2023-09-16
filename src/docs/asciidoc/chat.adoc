@@ -1,0 +1,35 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 메인 문서
+
+link:index.html[메인 문서]
+
+=== 이전 채팅 데이터 가져오기 & 전송된 채팅 데이터
+
+==== Request
+
+include::{snippets}/chat/getChatData/http-request.adoc[]
+include::{snippets}/chat/getChatData/path-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/chat/getChatData/http-response.adoc[]
+include::{snippets}/chat/getChatData/response-fields.adoc[]
+
+=== 채팅방 참여자 가져오기
+
+==== Request
+
+include::{snippets}/chat/getParticipants/http-request.adoc[]
+include::{snippets}/chat/getParticipants/path-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/chat/getParticipants/http-response.adoc[]
+include::{snippets}/chat/getParticipants/response-fields.adoc[]
+
+

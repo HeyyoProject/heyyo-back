@@ -92,7 +92,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .orElseThrow(() -> new ChatException("모임 정보를 찾을 수 없습니다."));
 
         Chat chat = Chat.createChat(chatResponse , groupStudy);
-        groupStudy.getChat().add(chat);
+        groupStudy.addChatData(chat);
     }
 
     @Override
