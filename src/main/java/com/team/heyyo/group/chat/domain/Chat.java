@@ -3,10 +3,7 @@ package com.team.heyyo.group.chat.domain;
 import com.team.heyyo.group.chat.dto.ChatResponse;
 import com.team.heyyo.group.study.domain.GroupStudy;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +15,7 @@ public class Chat {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long chatId;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private GroupStudy groupStudy;
 

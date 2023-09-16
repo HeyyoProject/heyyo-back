@@ -14,7 +14,7 @@ public class ChatService {
     private final ChatRepository chatRepository;
 
     public List<ChatResponse> findChatDataByStudyGroupId(long studyGroupId) {
-        return chatRepository.findChatDataByMeetingId(studyGroupId);
+        return chatRepository.findChatDataByGroupStudyId(studyGroupId);
     }
 
 }

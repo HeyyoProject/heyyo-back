@@ -20,7 +20,7 @@ public class ChatRepositoryImpl implements CustomChatRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<ChatResponse> findChatDataByMeetingId(long groupStudyId) {
+    public List<ChatResponse> findChatDataByGroupStudyId(long groupStudyId) {
         return jpaQueryFactory.select(Projections.constructor(
                         ChatResponse.class,
                         chat.chatId,
