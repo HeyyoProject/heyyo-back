@@ -1,14 +1,15 @@
 package com.team.heyyo.group.study.domain;
 
+import com.team.heyyo.group.chat.domain.Chat;
+import com.team.heyyo.group.chat.domain.ChatRoom;
 import com.team.heyyo.user.constant.Mbti;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 @Table(name = "group_study_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,6 +34,11 @@ public class GroupStudy {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Getter
+    @OneToMany(cascade = { CascadeType.PERSIST , CascadeType.REMOVE } , orphanRemoval = true)
+    @Builder.Default
+    private List<Chat> chat = new LinkedList<>();
 
     @Builder
     public GroupStudy(Long userId, String title, String description, String session, Mbti mbti) {
