@@ -7,13 +7,11 @@ import lombok.Setter;
 @Setter
 public class ChatRequest {
 
-    private String sender;
-
-    private String senderImage;
+    private String accessToken;
 
     private String message;
 
-    private long meetingId;
+    private long groupStudyId;
 
     private MessageType messageType;
 

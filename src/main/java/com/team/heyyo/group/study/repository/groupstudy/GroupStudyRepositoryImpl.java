@@ -125,7 +125,7 @@ public class GroupStudyRepositoryImpl implements GroupStudyRepositoryCustom {
     @Override
     public Optional<GroupStudy> findGroupStudyAndChatById(long id) {
         GroupStudy result = queryFactory.select(groupStudy).from(groupStudy)
-                .innerJoin(groupStudy.chatRoom).fetchJoin()
+                .innerJoin(groupStudy.chat).fetchJoin()
                 .where(groupStudy.groupStudyId.eq(id))
                 .fetchOne();
 

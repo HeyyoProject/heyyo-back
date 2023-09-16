@@ -22,14 +22,11 @@ public class ChatResponse {
 
     private String sendTime;
 
-    private String senderImage;
-
-    public static ChatResponse createChatResponse(ChatRequest chatMessage) {
+    public static ChatResponse createChatResponse(ChatRequest chatMessage , String sender) {
         return ChatResponse.builder()
-                .sender(chatMessage.getSender())
+                .sender(sender)
                 .sendTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .message(chatMessage.getMessage())
-                .senderImage(chatMessage.getSenderImage())
                 .build();
     }
 
