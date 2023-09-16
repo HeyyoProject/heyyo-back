@@ -12,7 +12,6 @@ import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.group.study.repository.groupstudy.GroupStudyRepository;
 import com.team.heyyo.user.domain.User;
 import com.team.heyyo.user.repository.UserRepository;
-import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

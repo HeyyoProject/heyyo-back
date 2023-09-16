@@ -32,4 +32,49 @@ include::{snippets}/chat/getParticipants/path-parameters.adoc[]
 include::{snippets}/chat/getParticipants/http-response.adoc[]
 include::{snippets}/chat/getParticipants/response-fields.adoc[]
 
+=== 채팅 연결
 
+[source,http,options="nowrap"]
+----
+GET /chat HTTP/1.1
+Host: localhost:8080
+
+----
+
+=== 채팅 데이터 전송
+
+[source,http,options="nowrap"]
+----
+- 연결된 상태에서 해당 데이터를 전송하세요.
+
+[ {
+  "accessToken" : "absrg24fj2o4g24ghawd" ,
+  "message" : "message",
+  "groupStudyId" : 30 ,
+  "messageType" : "SEND" or "ENTER"
+} ]
+----
+
+|===
+|Path|Type|Description
+
+|`+[].accessToken+`
+|`+Null+`
+|사용자 토큰
+
+|`+[].message+`
+|`+Null+`
+|사용자 데이터
+
+|`+[].groupStudyId+`
+|`+Null+`
+|그룹 방 아이디
+
+|`+[].messageType+`
+|`+SEND+`
+|전송 타입 [ SEND : 데이터 전송 ] [ ENTER : 채팅방 입장 ]
+
+|===
+
+- 필독 : 만약 처음 채팅방에 입장한다면 무조건 ENTER 타입으로 전송해주세요. ( message 를 제외한 모든 데이터 기입 )
+그 외 데이터를 전송한다면 SEND 타입으로 전송해주세요.
