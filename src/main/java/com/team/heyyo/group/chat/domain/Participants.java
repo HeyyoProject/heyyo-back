@@ -1,5 +1,6 @@
 package com.team.heyyo.group.chat.domain;
 
+import com.team.heyyo.group.study.domain.GroupStudy;
 import com.team.heyyo.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,9 @@ public class Participants {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User participants;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GroupStudy groupStudy;
 
     private String session;
 

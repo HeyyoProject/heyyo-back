@@ -39,7 +39,7 @@ public class GroupStudy {
     @Builder.Default
     private List<Chat> chat = new LinkedList<>();
 
-    @OneToMany(cascade = { CascadeType.PERSIST , CascadeType.REMOVE } , orphanRemoval = true)
+    @OneToMany(cascade = { CascadeType.PERSIST , CascadeType.REMOVE } , orphanRemoval = true , mappedBy = "groupStudy")
     @Builder.Default
     private List<Participants> participants = new LinkedList<>();
 
@@ -52,10 +52,20 @@ public class GroupStudy {
         this.mbti = mbti;
     }
 
-    public void addParticipants(User user) {
-        Participants data = Participants.builder().participants(user).build();
+    public void addParticipants(User user , String session) {
+        Participants data = Participants.builder()
+                .participants(user)
+                .session(session)
+                .groupStudy(this)
+                .build();
 
         participants.add(data);
+    }
+
+    public void addChatData(Chat chatData) {
+        chatData.setGroupStudy(this);
+
+        chat.add(chatData);
     }
 
     protected GroupStudy() {

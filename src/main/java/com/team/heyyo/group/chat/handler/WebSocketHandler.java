@@ -48,7 +48,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         if(chatMessage.getMessageType() == MessageType.ENTER) {
             joinChatBySession(groupStudyId , session);
-            addParticipatesToGroupStudy(groupStudyId , chatMessage.getAccessToken());
+            addParticipatesToGroupStudy(groupStudyId , chatMessage.getAccessToken() , session.getId());
 
         } else if(chatMessage.getMessageType() == MessageType.SEND) {
             sendChatToSameRootId(groupStudyId , objectMapper , chatMessage);
@@ -65,13 +65,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
         }
     }
 
-    private void addParticipatesToGroupStudy(long groupStudyId , String accessToken) {
+    private void addParticipatesToGroupStudy(long groupStudyId , String accessToken , String session) {
         User user = findUserByToken(accessToken);
 
         GroupStudy groupStudy = groupStudyRepository.findById(groupStudyId)
                 .orElseThrow(() -> new ChatException("그룹 방을 찾을 수 없습니다."));
 
-        groupStudy.addParticipants(user);
+        groupStudy.addParticipants(user , session);
     }
 
     private void sendChatToSameRootId(long groupStudyId , ObjectMapper objectMapper , ChatRequest chatMessage) throws IOException {
