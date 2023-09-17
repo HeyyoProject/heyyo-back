@@ -30,7 +30,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -79,7 +78,7 @@ public class ChatControllerTest {
                 .andDo(print());
         //then
         resultActions.andExpect(status().isOk())
-                .andDo(document("/chat/getChatData",
+                .andDo(document("chat/getChatData",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 pathParameters(
@@ -112,7 +111,7 @@ public class ChatControllerTest {
                 .andDo(print());
         //then
         resultActions.andExpect(status().isOk())
-                .andDo(document("/chat/getParticipants",
+                .andDo(document("chat/getParticipants",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
                                 pathParameters(
